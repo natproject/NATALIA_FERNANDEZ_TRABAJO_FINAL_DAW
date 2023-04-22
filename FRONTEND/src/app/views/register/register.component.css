@@ -1,0 +1,18 @@
+#botonLogin {
+    background-color: #28b864 !important;
+    border-color: #28b864 !important;
+}
+
+#botonLogin:hover {
+    background-color: black !important;
+    border-color: black !important;
+}
+
+#forgotPass:hover {
+    color: #28b864 !important;
+}
+
+#registrate:hover{
+    text-decoration: underline;
+    color: #28b864;
+}
