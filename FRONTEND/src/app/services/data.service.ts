@@ -18,6 +18,7 @@ export class DataService {
   public urlLogin: string = "http://127.0.0.1:8000/api_generate_token/"
   public urlRegister: string = "http://127.0.0.1:8000/api_register/"
   public urlPerfilUsuario: string = "http://127.0.0.1:8000/api_user_personal/"
+  public urlLogout: string = "http://127.0.0.1:8000/api_logout/"
 
   public getResponseLogin(datosFormulario: any): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(this.urlLogin, datosFormulario);
@@ -34,5 +35,14 @@ export class DataService {
       })
     };
     return this.http.get<PerfilUsuario>(this.urlPerfilUsuario, httpOptions);
+  }
+
+  public getResponseLogout(): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Token ${localStorage.getItem('token')}`
+      })
+    };
+    return this.http.get<any>(this.urlLogout, httpOptions);
   }
 }

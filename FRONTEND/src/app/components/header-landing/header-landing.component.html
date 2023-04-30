@@ -2,15 +2,15 @@
 <div class="container-fluid bg-dark px-0">
     <div class="row gx-0">
         <div class="col-lg-3 bg-dark d-none d-lg-block">
-            <a href="index.html"
-                class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
+            <a
+                class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center no-ref">
                 <i id="logo" class="fa-solid fa-dice-d20 fa-2xl text-primary"></i>
                 <h1 class="m-0 display-4 text-white text-uppercase">TABLE20</h1>
             </a>
         </div>
         <div class="col-lg-9">
             <nav class="navbar navbar-expand-lg bg-dark navbar-dark p-3 p-lg-0 px-lg-5">
-                <a href="index.html" class="navbar-brand d-block d-lg-none">
+                <a class="navbar-brand d-block d-lg-none no-href">
                     <i id="logo" class="fa-solid fa-dice-d20 fa-2xl text-primary"></i>
                     <h1 class="m-0 display-4 text-white text-uppercase">TABLE20</h1>
                 </a>
@@ -26,13 +26,14 @@
                     </div>
                 </div>
                 <ng-template #notLanding class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                    <div class="navbar-nav mr-auto py-0">
+                    <div class="navbar-nav mr-auto py-0 flex-grow-1">
                         <a [routerLink]="['home']" class="nav-item nav-link active">Home</a>
                         <a href="#" class="nav-item nav-link">Buscar partidas</a>
                         <a href="#" class="nav-item nav-link">Mis partidas</a>
                         <a [routerLink]="['profile']" class="nav-item nav-link">Mi Perfil</a>
                         <a href="#" class="nav-item nav-link">Contacto</a>
                     </div>
+                    <a (click)="logout()" [routerLink]="['']" class="nav-item nav-link active"><i id='logout' class="fa-solid fa-right-from-bracket"></i></a>
                 </ng-template>
             </nav>
         </div>

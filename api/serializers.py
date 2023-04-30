@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from .models import Perfil
+from .models import Perfil, Partida, Campanya, PartidaJugador, CampanyaJugador
 
 class PerfilSerializer(serializers.ModelSerializer):
     image = serializers.ImageField(max_length=None, use_url=True)
@@ -31,5 +31,27 @@ class UserRegisterSerializer(serializers.ModelSerializer):
             is_superuser=False
         )
         return user
-    
-    
+
+class PartidaSerializer(serializers.ModelSerializer):
+    image = serializers.ImageField(max_length=None, use_url=True)
+
+    class Meta:
+        model = Partida
+        fields = '__all__'
+        
+class PartidaJugadorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PartidaJugador
+        fields = ('id', 'partida', 'jugador')
+
+class CampanyaSerializer(serializers.ModelSerializer):
+    image = serializers.ImageField(max_length=None, use_url=True)
+
+    class Meta:
+        model = Campanya
+        fields = '__all__'
+
+class CampanyaJugadorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CampanyaJugador
+        fields = ('id', 'campanya', 'jugador')

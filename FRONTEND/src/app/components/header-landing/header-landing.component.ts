@@ -1,4 +1,6 @@
 import { Component, Input } from '@angular/core';
+import { DataService } from 'src/app/services/data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header-landing',
@@ -8,4 +10,28 @@ import { Component, Input } from '@angular/core';
 export class HeaderLandingComponent {
   @Input() landing: boolean = false;
 
+  constructor(private DataService: DataService, private router: Router) { }
+
+  logout() {
+    this.DataService.getResponseLogout().subscribe({
+      next: response => {
+        if (response) {
+          localStorage.clear();
+          this.router.navigate(['/home']);
+        }
+      },
+      error: error => {
+        console.log('Error:', error);
+      }
+    });
+  }
+
+  out() {
+    if(!localStorage.getItem('token')){
+      localStorage.clear();
+      this.router.navigate(['']);
+    }else{
+      this.router.navigate(['/home']);
+    }
+  }
 }
