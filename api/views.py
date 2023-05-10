@@ -8,8 +8,11 @@ from .serializers import (
     PartidaSerializer, 
     CampanyaSerializer, 
     PartidaJugadorSerializer, 
-    CampanyaJugadorSerializer)
-from .models import User, Partida, Campanya
+    CampanyaJugadorSerializer,
+    SolicitudesCampanyasSerializer,
+    SolicitudesPartidasSerializer
+    )
+from .models import User, Partida, Campanya, SolicitudesPartidas, SolicitudesCampanyas
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
         
@@ -52,7 +55,14 @@ class PartidaView(APIView):
         partidas = Partida.objects.all()
         if partidas.exists():
             serializer = PartidaSerializer(partidas, many=True)
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            data = []
+            for obj in serializer.data:
+                user = obj.get('master')
+                if user is not None:
+                    user_obj = User.objects.get(id=user)
+                    obj['master'] = user_obj.username
+                    data.append(obj)
+            return Response(serializer.data, status=status.HTTP_200_OK)   
         return Response({'message': 'No hay partidas que mostrar'}, status=status.HTTP_204_NO_CONTENT)
     
     def post(self, request):
@@ -97,6 +107,7 @@ class PartidaDetailView(APIView):
         partida.delete()
         return Response({'message': 'Partida eliminada correctamente'}, status=status.HTTP_204_NO_CONTENT)
 
+
 class CampanyaView(APIView):   
     permission_classes = [IsAuthenticated]
 
@@ -104,8 +115,15 @@ class CampanyaView(APIView):
         campanyas = Campanya.objects.all()
         if campanyas.exists():
             serializer = CampanyaSerializer(campanyas, many=True)
+            data = []
+            for obj in serializer.data:
+                user = obj.get('master')
+                if user is not None:
+                    user_obj = User.objects.get(id=user)
+                    obj['master'] = user_obj.username
+                    data.append(obj)
             return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response({'message': 'No hay campañas que mostrar'}, status=status.HTTP_204_NO_CONTENT)
+        return Response({'message': 'No hay partidas que mostrar'}, status=status.HTTP_204_NO_CONTENT)
     
     def post(self, request):
         serializer = CampanyaSerializer(data=request.data)
@@ -117,6 +135,7 @@ class CampanyaView(APIView):
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class CampanyaDetailView(APIView):
     permission_classes = [IsAuthenticated]
@@ -151,3 +170,113 @@ class CampanyaDetailView(APIView):
             return Response({'error': 'No eres el master de esta campanya'}, status=status.HTTP_401_UNAUTHORIZED)
         campanya.delete()
         return Response({'message': 'Campanya eliminada correctamente'}, status=status.HTTP_204_NO_CONTENT)
+    
+    
+class SolicitudesPartidasView(APIView):
+    permission_classes = [IsAuthenticated]
+    
+    def post(self, request):
+        jugador = request.user
+        partida_id = request.data.get('partida')
+        solicitud_existente = SolicitudesPartidas.objects.filter(jugador_solicitante=jugador, partida_id=partida_id).exists()
+        if solicitud_existente:
+            return Response({'message': 'Tu solicitud ya ha sido enviada'}, status=status.HTTP_400_BAD_REQUEST)
+        serializer = SolicitudesPartidasSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class SolicitudPartidaDetailView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def delete(self, request, pk):
+        try:
+            solicitud = SolicitudesPartidas.objects.get(pk=pk)
+        except SolicitudesPartidas.DoesNotExist:
+            return Response({'error': 'Solicitud no encontrada'}, status=status.HTTP_404_NOT_FOUND)
+        if solicitud.jugador_solicitante.id != request.user.id:
+            return Response({'error': 'No eres el usuario de esta solicitud'}, status=status.HTTP_401_UNAUTHORIZED)
+        solicitud.delete()
+        return Response({'message': 'Solicitud eliminada correctamente'}, status=status.HTTP_204_NO_CONTENT)    
+    
+    
+class MisSolicitudesPartidasEnviadasView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+        solicitudes = SolicitudesPartidas.objects.filter(jugador_solicitante=user)
+        if not solicitudes.exists():
+            return Response({'error': 'No has enviado ninguna solicitud'}, status=status.HTTP_404_NOT_FOUND)
+        serializer = SolicitudesPartidasSerializer(solicitudes, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+        
+        
+class MisSolicitudesPartidasRecibidasView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+        mis_partidas = Partida.objects.filter(master=user)
+        if not mis_partidas.exists():
+            return Response({'error': 'No tienes partidas creadas'}, status=status.HTTP_404_NOT_FOUND)
+        solicitudes = SolicitudesPartidas.objects.filter(partida__in=mis_partidas)
+        if not solicitudes.exists():
+            return Response({'error': 'No tienes solicitudes en tus partidas'}, status=status.HTTP_404_NOT_FOUND)
+        serializer = SolicitudesPartidasSerializer(solicitudes, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+class SolicitudesCampanyasView(APIView):
+    permission_classes = [IsAuthenticated]
+    
+    def post(self, request):
+        jugador = request.user
+        campanya_id = request.data.get('campanya')
+        solicitud_existente = SolicitudesPartidas.objects.filter(jugador_solicitante=jugador, campanya_id=campanya_id).exists()
+        if solicitud_existente:
+            return Response({'message': 'Tu solicitud ya ha sido enviada'}, status=status.HTTP_400_BAD_REQUEST)
+        serializer = SolicitudesCampanyasSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class SolicitudCampanyaDetailView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def delete(self, request, pk):
+        try:
+            solicitud = SolicitudesCampanyas.objects.get(pk=pk)
+        except SolicitudesCampanyas.DoesNotExist:
+            return Response({'error': 'Solicitud no encontrada'}, status=status.HTTP_404_NOT_FOUND)
+        if solicitud.jugador_solicitante.id != request.user.id:
+            return Response({'error': 'No eres el usuario de esta solicitud'}, status=status.HTTP_401_UNAUTHORIZED)
+        solicitud.delete()
+        return Response({'message': 'Solicitud eliminada correctamente'}, status=status.HTTP_204_NO_CONTENT)    
+    
+class MisSolicitudesCampanyasEnviadasView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+        solicitudes = SolicitudesCampanyas.objects.filter(jugador_solicitante=user)
+        if not solicitudes.exists():
+            return Response({'error': 'No has enviado ninguna solicitud'}, status=status.HTTP_404_NOT_FOUND)
+        serializer = SolicitudesCampanyasSerializer(solicitudes, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+        
+class MisSolicitudesCampanyasRecibidasView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+        mis_campanyas = Campanya.objects.filter(master=user)
+        if not mis_campanyas.exists():
+            return Response({'error': 'No tienes campañas creadas'}, status=status.HTTP_404_NOT_FOUND)
+        solicitudes = SolicitudesCampanyas.objects.filter(campanya__in=mis_campanyas)
+        if not solicitudes.exists():
+            return Response({'error': 'No tienes solicitudes en tus campañas'}, status=status.HTTP_404_NOT_FOUND)
+        serializer = SolicitudesCampanyasSerializer(solicitudes, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)

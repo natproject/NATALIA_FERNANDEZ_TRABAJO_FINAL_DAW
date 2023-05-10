@@ -1,5 +1,8 @@
+from datetime import timedelta, timezone, datetime
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
+
 
 class Perfil(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -7,11 +10,13 @@ class Perfil(models.Model):
     fecha_nacimiento = models.DateField()
     image = models.ImageField(upload_to='images/', blank=True, null=True)
 
+
 class Provincia(models.Model):
     nombre = models.CharField(max_length=50)
 
     def __str__(self):
         return self.nombre
+
 
 class Partida(models.Model):
     MODALIDADES = (
@@ -38,6 +43,8 @@ class Partida(models.Model):
     num_usuarios = models.PositiveIntegerField(default=1)
     image = models.ImageField(upload_to='partida/', blank=True, null=True)
     provincia = models.ForeignKey(Provincia, on_delete=models.CASCADE, blank=True, null=True)
+    horas = models.DecimalField(max_digits=4, decimal_places=2, null=True, blank=True)
+    resumen = models.CharField(max_length=200, blank=True)
 
         
 class PartidaJugador(models.Model):
@@ -52,7 +59,6 @@ class PartidaJugador(models.Model):
     nivel = models.CharField(max_length=15, choices=NIVELES, blank=True)
     experiencia_previa = models.CharField(max_length=500, blank=True)
     observaciones = models.CharField(max_length=2000, blank=True)
-
 
 class Campanya(models.Model):
     MODALIDADES = (
@@ -81,6 +87,8 @@ class Campanya(models.Model):
     num_usuarios = models.PositiveIntegerField(default=1)
     image = models.ImageField(upload_to='campanya/', blank=True, null=True)
     provincia = models.ForeignKey(Provincia, on_delete=models.CASCADE, blank=True, null=True)
+    horas = models.DecimalField(max_digits=4, decimal_places=2, null=True, blank=True)
+    resumen = models.CharField(max_length=200, blank=True)
         
 class CampanyaJugador(models.Model):
     NIVELES = (
@@ -97,3 +105,16 @@ class CampanyaJugador(models.Model):
     clase_personaje = models.CharField(max_length=100, blank=True)
     raza_personaje = models.CharField(max_length=100, blank=True)
     observaciones = models.CharField(max_length=2000, blank=True)
+    
+    
+class SolicitudesPartidas(models.Model):
+    jugador_solicitante = models.ForeignKey(User, on_delete=models.CASCADE)
+    partida = models.ForeignKey(Partida, on_delete=models.CASCADE)
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
+    aceptada = models.BooleanField(default=False)
+
+class SolicitudesCampanyas(models.Model):
+    jugador_solicitante = models.ForeignKey(User, on_delete=models.CASCADE)
+    campanya = models.ForeignKey(Campanya, on_delete=models.CASCADE)
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
+    aceptada = models.BooleanField(default=False)

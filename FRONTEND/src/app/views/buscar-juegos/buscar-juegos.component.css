@@ -1,0 +1,15 @@
+#fotoboton {
+    opacity: 0.5;
+
+}
+
+.card:hover{
+    border-width: 10px !important;
+    border-color: #28b864 !important;
+    cursor:pointer;
+}
+
+.card {
+    transition-duration: 0.5s;
+    transition-delay: 0.1s;
+}

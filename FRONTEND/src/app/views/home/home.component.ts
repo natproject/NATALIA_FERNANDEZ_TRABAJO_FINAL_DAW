@@ -27,6 +27,7 @@ export class HomeComponent {
     } else {
       this.DataService.getResponsePerfil().subscribe({
         next: response => {
+          console.log(response)
           this.username = response.username;
           localStorage.setItem('perfilUsuario', JSON.stringify(response));
         },

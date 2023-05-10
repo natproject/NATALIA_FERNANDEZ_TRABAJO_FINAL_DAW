@@ -1,0 +1,62 @@
+<section>
+    <div class="section-title text-center mt-5">
+        <h2 style="color: #28b864">BUSCAR PARTIDAS</h2>
+    </div>
+    <div class="container py-5">
+        <div *ngFor="let item of partidas | paginate: { itemsPerPage: 5, currentPage: p }" class="row justify-content-center mb-3">
+            <div class="col-md-12 col-xl-10">
+                <div class="card shadow-0 border rounded-3">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0">
+                                <div class="bg-image hover-zoom ripple rounded ripple-surface">
+                                    <img src="http://127.0.0.1:8000/{{item.image}}" class="w-100" id= "img-fixed-size" />
+                                    <a href="#!">
+                                        <div class="hover-overlay">
+                                            <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);">
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-6 col-xl-6">
+                                <span class="d-flex">
+                                    <h4>{{item.nombre_juego}}</h4>
+                                    <h4 class="text-end ms-auto mr-2">{{item.num_usuarios}}/{{item.max_usuarios}} <i class="fa-solid fa-users"></i></h4>
+                                </span>
+                                <span class="d-flex">
+                                    <h6 class="text-success me-3">{{item.fecha}}</h6>
+                                    <h6 class="text-end ms-auto mr-2">{{item.horas}} horas</h6>
+                                </span>
+                                <h6 class="text-success me-3">{{item.lugar}}</h6>
+                                <div id="texto" class="mt-1 mb-0 text-muted">
+                                    <span class="text-primary"> • </span>
+                                    <span>{{item.modalidad}}</span>
+                                    <span class="text-primary"> • </span>
+                                    <span>{{item.nivel_jugador}}</span>
+                                </div>
+                                <p class="mt-1 mb-4 mb-md-0">
+                                    {{item.resumen}} ...
+                                </p>
+                            </div>
+                            <div class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start align-items-center">
+                                <span class="d-flex">
+                                    <h5 class="text-end ms-auto mr-2"><i class="fa-solid fa-dice-d20" style="color:#28b864"></i> Master: <a id="master" href="#">{{item.master}}</a></h5>
+                                </span>
+                                <div class="d-flex flex-column mb-auto mt-5">
+                                    <button class="btn btn-primary btn-sm mt-2" type="button">Detalles</button>
+                                    <button id="solicitar" class="btn btn-outline-primary btn-sm mt-3" type="button">
+                                        Enviar solicitud
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <pagination-controls class="text-center" (pageChange)="p = $event"></pagination-controls>
+    <br><br>
+</section>

@@ -1,0 +1,30 @@
+@media (max-width: 767.98px) { .border-sm-start-none { border-left: none !important; } }
+
+#solicitar{
+	color: black;
+    border-color: black;
+}
+
+#solicitar:hover{
+	color: white;
+    border-color: white;
+	background-color: #424143;
+}
+
+#img-fixed-size {
+	max-width: 250px;
+	max-height: 200px;
+	object-fit: cover;
+  }
+
+#texto{
+	font-size: 16px;
+}
+
+#master{
+    color: #222429 !important;
+}
+
+#master:hover{
+    color: #28b864 !important;
+}

@@ -5,7 +5,8 @@ import { HttpHeaders } from '@angular/common/http';
 
 import { LoginResponse } from '../interfaces/response';
 import { PerfilUsuario } from '../interfaces/response';
-import { Perfil} from '../interfaces/response';
+import { Partidas } from '../interfaces/response';
+import { Campanyas } from '../interfaces/response';
 
 
 @Injectable({
@@ -19,6 +20,9 @@ export class DataService {
   public urlRegister: string = "http://127.0.0.1:8000/api_register/"
   public urlPerfilUsuario: string = "http://127.0.0.1:8000/api_user_personal/"
   public urlLogout: string = "http://127.0.0.1:8000/api_logout/"
+  public urlPartidas: string = "http://127.0.0.1:8000/api_partida/"
+  public urlCampanyas: string = "http://127.0.0.1:8000/api_campanya/"
+
 
   public getResponseLogin(datosFormulario: any): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(this.urlLogin, datosFormulario);
@@ -44,5 +48,23 @@ export class DataService {
       })
     };
     return this.http.get<any>(this.urlLogout, httpOptions);
+  }
+
+  public getPartidas(): Observable<Partidas> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Token ${localStorage.getItem('token')}`
+      })
+    };
+    return this.http.get<Partidas>(this.urlPartidas, httpOptions);
+  }
+
+  public getCampanyas(): Observable<Campanyas> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Token ${localStorage.getItem('token')}`
+      })
+    };
+    return this.http.get<Campanyas>(this.urlCampanyas, httpOptions);
   }
 }
