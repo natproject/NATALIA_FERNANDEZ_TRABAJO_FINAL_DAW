@@ -13,6 +13,9 @@ export interface Perfil {
   bio:              string;
   fecha_nacimiento: Date;
   image:            string;
+  proximos_juegos:  number;
+  juegos_terminados:number;
+
 }
 
 export interface Partidas {

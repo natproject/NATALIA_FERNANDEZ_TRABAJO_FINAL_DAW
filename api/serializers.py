@@ -6,7 +6,7 @@ class PerfilSerializer(serializers.ModelSerializer):
     image = serializers.ImageField(max_length=None, use_url=True)
     class Meta:
         model = Perfil
-        fields = ('bio', 'fecha_nacimiento', 'image')
+        fields = ('bio', 'fecha_nacimiento', 'image', 'proximos_juegos', 'juegos_terminados')
 
 class UserSerializer(serializers.ModelSerializer):
     perfil = PerfilSerializer()

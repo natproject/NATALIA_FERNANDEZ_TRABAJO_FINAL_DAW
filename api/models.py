@@ -9,6 +9,8 @@ class Perfil(models.Model):
     bio = models.CharField(max_length=500, blank=True)
     fecha_nacimiento = models.DateField()
     image = models.ImageField(upload_to='images/', blank=True, null=True)
+    proximos_juegos = models.PositiveIntegerField(default=0)
+    juegos_terminados = models.PositiveIntegerField(default=0)
 
 
 class Provincia(models.Model):
