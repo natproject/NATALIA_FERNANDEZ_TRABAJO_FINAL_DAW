@@ -18,6 +18,7 @@ import { ProfileComponent } from './views/profile/profile.component';
 import { PartidasComponent } from './views/partidas/partidas.component';
 import { CampanyasComponent } from './views/campanyas/campanyas.component';
 import { BuscarJuegosComponent } from './views/buscar-juegos/buscar-juegos.component';
+import { SolicitudesEnviadasComponent } from './views/solicitudes-enviadas/solicitudes-enviadas.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { BuscarJuegosComponent } from './views/buscar-juegos/buscar-juegos.compo
     ProfileComponent,
     PartidasComponent,
     CampanyasComponent,
-    BuscarJuegosComponent
+    BuscarJuegosComponent,
+    SolicitudesEnviadasComponent
   ],
   imports: [
     BrowserModule,

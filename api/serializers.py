@@ -76,15 +76,38 @@ class CampanyaJugadorSerializer(serializers.ModelSerializer):
     class Meta:
         model = CampanyaJugador
         fields = ('id', 'campanya', 'jugador')
+      
         
-class SolicitudesPartidasSerializer(serializers.ModelSerializer):
+class InfoMasterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('username',)
     
+class PartidaSolicitadaSerializer(serializers.ModelSerializer):
+    master = InfoMasterSerializer(read_only=True)
+
+    class Meta:
+        model = Partida
+        fields = ('id', 'nombre_juego', 'master', 'nivel_jugador', 'modalidad', 'fecha')
+
+class SolicitudesPartidasSerializer(serializers.ModelSerializer):
+    partida = PartidaSolicitadaSerializer(read_only=True)
+
     class Meta:
         model = SolicitudesPartidas
-        fields = "__all__"
+        fields = ('id', 'fecha_creacion', 'aceptada', 'jugador_solicitante', 'partida')
         
+
+class CampanyaSolicitadaSerializer(serializers.ModelSerializer):
+    master = InfoMasterSerializer(read_only=True)
+
+    class Meta:
+        model = Campanya
+        fields = ('id', 'juego_rol', 'nombre_campanya', 'master', 'num_partida', 'nivel_jugador', 'modalidad', 'fecha')
+
 class SolicitudesCampanyasSerializer(serializers.ModelSerializer):
-    
+    campanya = CampanyaSolicitadaSerializer(read_only=True)
+
     class Meta:
         model = SolicitudesCampanyas
-        fields = "__all__"
+        fields = ('id', 'fecha_creacion', 'aceptada', 'jugador_solicitante', 'campanya')

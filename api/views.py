@@ -226,7 +226,7 @@ class SolicitudPartidaDetailView(APIView):
         solicitud.delete()
         return Response({'message': 'Solicitud eliminada correctamente'}, status=status.HTTP_204_NO_CONTENT)    
     
-    
+   
 class MisSolicitudesPartidasEnviadasView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -247,7 +247,7 @@ class MisSolicitudesPartidasRecibidasView(APIView):
         mis_partidas = Partida.objects.filter(master=user)
         if not mis_partidas.exists():
             return Response({'error': 'No tienes partidas creadas'}, status=status.HTTP_404_NOT_FOUND)
-        solicitudes = SolicitudesPartidas.objects.filter(partida__in=mis_partidas)
+        solicitudes = SolicitudesPartidas.objects.filter(partida__in=mis_partidas, aceptada=False)
         if not solicitudes.exists():
             return Response({'error': 'No tienes solicitudes en tus partidas'}, status=status.HTTP_404_NOT_FOUND)
         serializer = SolicitudesPartidasSerializer(solicitudes, many=True)
@@ -326,7 +326,7 @@ class MisSolicitudesCampanyasRecibidasView(APIView):
         mis_campanyas = Campanya.objects.filter(master=user)
         if not mis_campanyas.exists():
             return Response({'error': 'No tienes campañas creadas'}, status=status.HTTP_404_NOT_FOUND)
-        solicitudes = SolicitudesCampanyas.objects.filter(campanya__in=mis_campanyas)
+        solicitudes = SolicitudesCampanyas.objects.filter(campanya__in=mis_campanyas, aceptada=False)
         if not solicitudes.exists():
             return Response({'error': 'No tienes solicitudes en tus campañas'}, status=status.HTTP_404_NOT_FOUND)
         serializer = SolicitudesCampanyasSerializer(solicitudes, many=True)
@@ -350,3 +350,4 @@ class MisPartidasView(APIView):
                     data.append(obj)
             return Response(serializer.data, status=status.HTTP_200_OK)   
         return Response({'message': 'No hay partidas que mostrar'}, status=status.HTTP_204_NO_CONTENT)
+

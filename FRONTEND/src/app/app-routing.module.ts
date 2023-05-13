@@ -9,6 +9,8 @@ import { ProfileComponent } from './views/profile/profile.component';
 import { PartidasComponent } from './views/partidas/partidas.component';
 import { BuscarJuegosComponent } from './views/buscar-juegos/buscar-juegos.component';
 import { CampanyasComponent } from './views/campanyas/campanyas.component';
+import { SolicitudesEnviadasComponent } from './views/solicitudes-enviadas/solicitudes-enviadas.component';
+
 
 const routes: Routes = [
   { path: '', component: LandingComponent },
@@ -19,6 +21,7 @@ const routes: Routes = [
   { path: 'partidas', component: PartidasComponent },
   { path: 'campanyas', component: CampanyasComponent },
   { path: 'buscar', component: BuscarJuegosComponent },
+  { path: 'solicitudes_enviadas', component: SolicitudesEnviadasComponent },
 ];
 
 @NgModule({

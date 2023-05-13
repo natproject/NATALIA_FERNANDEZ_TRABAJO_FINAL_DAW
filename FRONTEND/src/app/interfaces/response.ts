@@ -62,3 +62,42 @@ export interface Campanyas {
   resumen:            string;
 }
 
+export interface SolicitudesPartidas {
+  id:                  number;
+  fecha_creacion:      Date;
+  aceptada:            boolean;
+  jugador_solicitante: number;
+  partida:             Partida;
+}
+
+export interface Partida {
+  id:            number;
+  nombre_juego:  string;
+  master:        Master;
+  nivel_jugador: string;
+  modalidad:     string;
+  fecha:         Date;
+}
+
+export interface SolicitudesCampanyas {
+  id:                  number;
+  fecha_creacion:      Date;
+  aceptada:            boolean;
+  jugador_solicitante: number;
+  campanya:            Campanya;
+}
+
+export interface Campanya {
+  id:              number;
+  juego_rol:       string;
+  nombre_campanya: string;
+  master:          Master;
+  num_partida:     number;
+  nivel_jugador:   string;
+  modalidad:       string;
+  fecha:           Date;
+}
+
+export interface Master {
+  username: string;
+}

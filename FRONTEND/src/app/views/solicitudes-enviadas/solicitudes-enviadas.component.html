@@ -1,0 +1,121 @@
+<div class="container mt-5 mb-5">
+    <div class="row">
+        <h1 class="text-center mb-5" style="color: #28b864;">Solicitudes enviadas</h1>
+        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+            <div class="col-6 ">
+                <li class="nav-item text-center d-flex justify-content-center" role="presentation">
+                    <button class="nav-link active w-100 text-center" id="pills-home-tab" data-bs-toggle="pill"
+                        data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"
+                        aria-selected="true">PARTIDAS</button>
+                </li>
+            </div>
+            <div class="col-6 ">
+                <li class="nav-item text-center d-flex justify-content-center" role="presentation">
+                    <button class="nav-link w-100 text-center" id="pills-profile-tab" data-bs-toggle="pill"
+                        data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile"
+                        aria-selected="false">CAMPAÑAS</button>
+                </li>
+            </div>
+        </ul>
+        <div class="col-6 text-center">
+            <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                    ...
+                </div>
+                <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">...
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button #myButton type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+        hidden>
+        Lanzar demo de modal
+    </button>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">¡Han aceptado tu solicitud!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="d-flex justify-content-center">
+                        <button #myButton2 id="botonOk" type="button" class="btn btn-secondary text-center mx-2"
+                            data-bs-toggle="modal" data-bs-target="#exampleModal2">REVISAR SOLICITUDES
+                            ACEPTADAS</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Las siguientes solicitudes han sido aceptadas:</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div *ngFor="let item of solicitudesCampanyasAceptadas" class="card mb-2">
+                        <div class="card-body">
+                            <span class="d-flex">
+                                <a>
+                                    <h5 class="card-title">{{item.campanya.juego_rol}} -
+                                        {{item.campanya.nombre_campanya}}
+                                    </h5>
+                                </a>
+                                <h5 class="text-end ms-auto mr-2 text-end"><i class="fa-solid fa-calendar"></i>
+                                    {{item.campanya.fecha}} </h5>
+                            </span>
+                            <div class="mt-1 mb-0 text-muted">
+                                <span class="text-primary"> • </span>
+                                <span>{{item.campanya.modalidad}}</span>
+                                <span class="text-primary"> • </span>
+                                <span>{{item.campanya.nivel_jugador}}</span>
+                            </div>
+                            <span class="d-flex">
+                                <h5 class="text-start mt-2"><i class="fa-solid fa-dice-d20"
+                                        style="color:#28b864"></i>
+                                    Master: <a id="master" href="#">{{item.campanya.master.username}}</a></h5>
+                            </span>
+                            <div class="d-flex justify-content-center">
+                                <button id="botonOk" type="button"
+                                    class="btn btn-secondary text-center mx-2">OK</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngFor="let item of solicitudesPartidasAceptadas" class="card mb-2">
+                        <div class="card-body">
+                            <span class="d-flex">
+                                <a>
+                                    <h5 class="card-title">{{item.partida.nombre_juego}}
+                                    </h5>
+                                </a>
+                                <h5 class="text-end ms-auto mr-2 text-end"><i class="fa-solid fa-calendar"></i>
+                                    {{item.partida.fecha}} </h5>
+                            </span>
+                            <div class="mt-1 mb-0 text-muted">
+                                <span class="text-primary"> • </span>
+                                <span>{{item.partida.modalidad}}</span>
+                                <span class="text-primary"> • </span>
+                                <span>{{item.partida.nivel_jugador}}</span>
+                            </div>
+                            <span class="d-flex">
+                                <h5 class="text-start mt-2"><i class="fa-solid fa-dice-d20"
+                                        style="color:#28b864"></i>
+                                    Master: <a id="master" href="#">{{item.partida.master.username}}</a></h5>
+                            </span>
+                            <div class="d-flex justify-content-center">
+                                <button id="botonOk" type="button"
+                                    class="btn btn-secondary text-center mx-2">OK</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

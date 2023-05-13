@@ -1,0 +1,16 @@
+#pills-home-tab{
+    font-size: 20px;
+}
+
+#pills-profile-tab{
+    font-size: 20px;
+}
+
+#botonOk:hover{
+    background-color: #222429;
+    color:white
+}
+
+#nombrePartidaLink:hover{
+    color:#28b864
+}
