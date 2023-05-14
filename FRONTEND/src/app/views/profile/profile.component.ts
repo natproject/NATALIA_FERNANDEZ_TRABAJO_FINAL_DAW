@@ -11,6 +11,7 @@ export class ProfileComponent {
   public name = "";
   public image = "";
   public bio = "";
+
   constructor(private router: Router) { }
 
   ngOnInit() {

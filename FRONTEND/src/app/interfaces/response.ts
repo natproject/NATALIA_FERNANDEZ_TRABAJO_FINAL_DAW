@@ -32,8 +32,8 @@ export interface Partidas {
   observaciones:      string;
   max_usuarios:       number;
   num_usuarios:       number;
-  master:             string;
-  provincia:          number;
+  master:             Master;
+  provincia:          Provincia;
   jugadores:          number[];
   horas:              number;
   resumen:            string;
@@ -55,8 +55,8 @@ export interface Campanyas {
   observaciones:      string;
   max_usuarios:       number;
   num_usuarios:       number;
-  master:             string;
-  provincia:          null;
+  master:             Master;
+  provincia:          Provincia;
   jugadores:          number[];
   horas:              number;
   resumen:            string;
@@ -68,6 +68,7 @@ export interface SolicitudesPartidas {
   aceptada:            boolean;
   jugador_solicitante: number;
   partida:             Partida;
+  oculto:              boolean;
 }
 
 export interface Partida {
@@ -85,6 +86,7 @@ export interface SolicitudesCampanyas {
   aceptada:            boolean;
   jugador_solicitante: number;
   campanya:            Campanya;
+  oculto:              boolean;
 }
 
 export interface Campanya {
@@ -98,6 +100,75 @@ export interface Campanya {
   fecha:           Date;
 }
 
-export interface Master {
+export interface PartidaDetalle {
+  id:                 number;
+  image:              string;
+  hora_inicio:        string;
+  hora_fin:           string;
+  modalidad:          string;
+  lugar:              string;
+  fecha:              string;
+  nombre_juego:       string;
+  nivel_jugador:      string;
+  requisitos_jugador: string;
+  observaciones:      string;
+  max_usuarios:       number;
+  num_usuarios:       number;
+  horas:              string;
+  resumen:            string;
+  master:             Master;
+  provincia:          Provincia;
+  jugadores:          Jugadores[];
+}
+
+export interface CampanyaDetalle {
+  id:                 number;
+  image:              string;
+  hora_inicio:        string;
+  hora_fin:           string;
+  jugadores:          Jugadores[];
+  provincia:          null;
+  modalidad:          string;
+  lugar:              string;
+  fecha:              string;
+  juego_rol:          string;
+  nombre_campanya:    string;
+  num_partida:        number;
+  nivel_jugador:      string;
+  requisitos_jugador: string;
+  observaciones:      string;
+  max_usuarios:       number;
+  num_usuarios:       number;
+  horas:              string;
+  resumen:            string;
+  master:             Master;
+}
+
+export interface Jugadores {
+  id:       number;
   username: string;
+}
+
+export interface Provincia {
+  nombre: string;
+}
+
+export interface Master {
+  id: number;
+  username: string;
+}
+
+export interface UserPerfil {
+  id:       number;
+  username: string;
+  email:    string;
+  perfil:   Perfil;
+}
+
+export interface Perfil {
+  bio:               string;
+  fecha_nacimiento:  Date;
+  image:             string;
+  proximos_juegos:   number;
+  juegos_terminados: number;
 }

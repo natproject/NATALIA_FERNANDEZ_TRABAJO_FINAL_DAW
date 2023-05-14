@@ -1,0 +1,9 @@
+#textoRequisitos{
+    color: #686A6F !important;
+}
+
+#nombreJugadores:hover{
+    color: #28b864;
+    font-weight: bold;
+    cursor: pointer;
+}

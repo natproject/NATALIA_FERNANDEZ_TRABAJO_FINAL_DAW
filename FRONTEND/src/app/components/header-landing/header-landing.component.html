@@ -20,18 +20,18 @@
                 <div *ngIf="landing; else notLanding" class="collapse navbar-collapse justify-content-between"
                     id="navbarCollapse">
                     <div class="navbar-nav mr-auto py-0">
-                        <a href="index.html" class="nav-item nav-link active">Home</a>
+                        <a href="index.html" class="nav-item nav-link">Home</a>
                         <a href="#" class="nav-item nav-link">Sobre TABLE20</a>
                         <a href="#" class="nav-item nav-link">Contacto</a>
                     </div>
                 </div>
                 <ng-template #notLanding class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto py-0 flex-grow-1">
-                        <a [routerLink]="['home']" class="nav-item nav-link active">Home</a>
-                        <a [routerLink]="['buscar']" class="nav-item nav-link">Buscar juegos</a>
-                        <a href="#" class="nav-item nav-link">Mis juegos</a>
-                        <a [routerLink]="['profile']" class="nav-item nav-link">Mi Perfil</a>
-                        <a href="#" class="nav-item nav-link">Contacto</a>
+                        <a [routerLink]="['home']" routerLinkActive="active" class="nav-item nav-link">Home</a>
+                        <a [routerLink]="['buscar']" routerLinkActive="active" class="nav-item nav-link">Buscar juegos</a>
+                        <a href="#" routerLinkActive="active" class="nav-item nav-link">Mis juegos</a>
+                        <a [routerLink]="['perfil']" routerLinkActive="active" class="nav-item nav-link">Mi Perfil</a>
+                        <a href="#" routerLinkActive="active" class="nav-item nav-link">Contacto</a>
                     </div>
                     <a (click)="logout()" [routerLink]="['']" class="nav-item nav-link active"><i id='logout' class="fa-solid fa-right-from-bracket"></i></a>
                 </ng-template>

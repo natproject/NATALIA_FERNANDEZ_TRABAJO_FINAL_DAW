@@ -6,11 +6,9 @@
     font-size: 20px;
 }
 
-#botonOk:hover{
-    background-color: #222429;
-    color:white
-}
-
-#nombrePartidaLink:hover{
+#master:hover{
     color:#28b864
+}
+#master{
+    color: var(--bs-body-color);
 }

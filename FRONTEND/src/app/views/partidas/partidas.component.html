@@ -28,7 +28,8 @@
                                     <h6 class="text-success me-3">{{item.fecha}}</h6>
                                     <h6 class="text-end ms-auto mr-2">{{item.horas}} horas</h6>
                                 </span>
-                                <h6 class="text-success me-3">{{item.lugar}}</h6>
+                                <h6 *ngIf="item.provincia == null" class="text-success me-3">{{item.lugar}}</h6>
+                                <h6 *ngIf="item.provincia != null" class="text-success me-3">{{item.lugar}} - {{item.provincia.nombre}}</h6>
                                 <div id="texto" class="mt-1 mb-0 text-muted">
                                     <span class="text-primary"> • </span>
                                     <span>{{item.modalidad}}</span>
@@ -41,10 +42,10 @@
                             </div>
                             <div class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start align-items-center">
                                 <span class="d-flex">
-                                    <h5 class="text-end ms-auto mr-2"><i class="fa-solid fa-dice-d20" style="color:#28b864"></i> Master: <a id="master" href="#">{{item.master}}</a></h5>
+                                    <h5 class="text-end ms-auto mr-2"><i class="fa-solid fa-dice-d20" style="color:#28b864"></i> Master: <a id="master" [routerLink]="['/usuario', item.master.id]"> {{item.master.username}}</a></h5>
                                 </span>
                                 <div class="d-flex flex-column mb-auto mt-3">
-                                    <button class="btn btn-primary btn-sm mt-2" type="button">Detalles</button>
+                                    <button [routerLink]="['/detalle_partida', item.id]" class="btn btn-primary btn-sm mt-2" type="button">Detalles</button>
                                     <button id="solicitar" class="btn btn-outline-primary btn-sm mt-3" type="button">
                                         Enviar solicitud
                                     </button>

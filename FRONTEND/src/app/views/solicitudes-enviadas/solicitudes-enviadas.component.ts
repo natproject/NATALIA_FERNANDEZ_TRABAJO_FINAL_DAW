@@ -4,7 +4,7 @@ import { DataService } from 'src/app/services/data.service';
 import { HttpClient } from '@angular/common/http';
 import { SolicitudesCampanyas } from 'src/app/interfaces/response';
 import { SolicitudesPartidas } from 'src/app/interfaces/response';
-import { ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { ViewChild, ElementRef } from '@angular/core';
 
 
 @Component({
@@ -20,8 +20,12 @@ export class SolicitudesEnviadasComponent {
   public solicitudesPartidasAceptadas: SolicitudesPartidas[] = [];
   public solicitudesCampanyasAceptadas: SolicitudesCampanyas[] = [];
   public showSolicitudesAceptadas: boolean = false;
+  public hiddenCampanya: boolean = false;
+  public hiddenPartida: boolean = false;
 
-  constructor(private router: Router, private DataService: DataService, private http: HttpClient, private changeDetector: ChangeDetectorRef) {
+
+
+  constructor(private router: Router, private DataService: DataService, private http: HttpClient) {
     this.solicitudesPartidasAceptadas = [];
     this.solicitudesCampanyasAceptadas = [];
   }
@@ -56,30 +60,32 @@ export class SolicitudesEnviadasComponent {
     }
   }
 
- show() {
+  show() {
     this.myButton.nativeElement.click();
   }
 
   calcularPartida(solicitudes: any) {
     for (let i = 0; i < solicitudes.length; i++) {
       if (solicitudes[i].aceptada == true) {
+        solicitudes[i].oculto = false;
         this.solicitudesPartidasAceptadas.push(solicitudes[i])
         this.showAviso = true;
       }
     }
-    console.log(this.solicitudesPartidasAceptadas)
     if (this.showAviso) {
       this.show()
     }
-  } 
+  }
+
   calcularCampanya(solicitudes: any) {
     for (let i = 0; i < solicitudes.length; i++) {
       if (solicitudes[i].aceptada == true) {
+        solicitudes[i].oculto = false;
         this.solicitudesCampanyasAceptadas.push(solicitudes[i])
-        this.showAviso= true;
+        console.log(this.solicitudesCampanyasAceptadas)
+        this.showAviso = true;
       }
     }
-    console.log(this.solicitudesCampanyasAceptadas)
     if (this.showAviso) {
       this.show()
     }
@@ -88,4 +94,34 @@ export class SolicitudesEnviadasComponent {
   show2() {
     this.myButton2.nativeElement.click();
   }
+
+  solicitudPartidaRevisada(id: number, index:number) {
+    this.solicitudesPartidasAceptadas[index].oculto = true;
+    this.DataService.delPartidaRevisada(id).subscribe({
+      next: () => {
+        console.log('Partida eliminada');
+      },
+      error: error => {
+        console.error(error);
+        this.solicitudesPartidasAceptadas[id].oculto = false;
+      }
+    });
+  }
+
+  solicitudCampanyaRevisada(id: number, index:number ) {
+    this.solicitudesCampanyasAceptadas[index].oculto = true;
+    this.DataService.delCampanyaRevisada(id).subscribe({
+      next: () => {
+        console.log('Campanya eliminada');
+      },
+      error: error => {
+        console.error(error);
+        this.solicitudesCampanyasAceptadas[id].oculto = false;
+
+      }
+    });
+  }
+
+
+
 }

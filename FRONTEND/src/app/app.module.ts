@@ -19,6 +19,9 @@ import { PartidasComponent } from './views/partidas/partidas.component';
 import { CampanyasComponent } from './views/campanyas/campanyas.component';
 import { BuscarJuegosComponent } from './views/buscar-juegos/buscar-juegos.component';
 import { SolicitudesEnviadasComponent } from './views/solicitudes-enviadas/solicitudes-enviadas.component';
+import { DetallePartidaComponent } from './views/detalle-partida/detalle-partida.component';
+import { DetalleCampanyaComponent } from './views/detalle-campanya/detalle-campanya.component';
+import { UsuarioComponent } from './views/usuario/usuario.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,10 @@ import { SolicitudesEnviadasComponent } from './views/solicitudes-enviadas/solic
     PartidasComponent,
     CampanyasComponent,
     BuscarJuegosComponent,
-    SolicitudesEnviadasComponent
+    SolicitudesEnviadasComponent,
+    DetallePartidaComponent,
+    DetalleCampanyaComponent,
+    UsuarioComponent
   ],
   imports: [
     BrowserModule,

@@ -13,6 +13,7 @@ import { formatDate } from '@angular/common';
 export class CampanyasComponent {
   p: number = 1;
   campanyas: Campanyas[] = []
+  
   constructor(private router: Router, private DataService: DataService, private http: HttpClient) { }
 
 
@@ -28,6 +29,7 @@ export class CampanyasComponent {
             let formattedFecha = formatDate(fecha, 'dd-MM-yyyy', 'en-US');
             this.campanyas[i].fecha = formattedFecha;
           }
+          console.log(this.campanyas)
         },
         error: error => {
           console.log(error);

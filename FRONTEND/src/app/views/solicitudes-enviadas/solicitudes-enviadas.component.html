@@ -59,11 +59,11 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div *ngFor="let item of solicitudesCampanyasAceptadas" class="card mb-2">
+                    <div *ngFor="let item of solicitudesCampanyasAceptadas; let i = index" [hidden]="item.oculto" class="card mb-2">
                         <div class="card-body">
                             <span class="d-flex">
-                                <a>
-                                    <h5 class="card-title">{{item.campanya.juego_rol}} -
+                                <a data-bs-dismiss="modal" aria-label="Close" [routerLink]="['/detalle_campanya', item.campanya.id]">
+                                    <h5 id="master" class="card-title">{{item.campanya.juego_rol}} -
                                         {{item.campanya.nombre_campanya}}
                                     </h5>
                                 </a>
@@ -77,21 +77,19 @@
                                 <span>{{item.campanya.nivel_jugador}}</span>
                             </div>
                             <span class="d-flex">
-                                <h5 class="text-start mt-2"><i class="fa-solid fa-dice-d20"
-                                        style="color:#28b864"></i>
+                                <h5 class="text-start mt-2"><i class="fa-solid fa-dice-d20" style="color:#28b864"></i>
                                     Master: <a id="master" href="#">{{item.campanya.master.username}}</a></h5>
                             </span>
                             <div class="d-flex justify-content-center">
-                                <button id="botonOk" type="button"
-                                    class="btn btn-secondary text-center mx-2">OK</button>
+                                <button (click)="solicitudCampanyaRevisada(item.id, i)" type="button" class="btn btn-primary mt-2">OK</button>
                             </div>
                         </div>
                     </div>
-                    <div *ngFor="let item of solicitudesPartidasAceptadas" class="card mb-2">
+                    <div *ngFor="let item of solicitudesPartidasAceptadas; let i = index" [hidden]="item.oculto" class="card mb-2">
                         <div class="card-body">
                             <span class="d-flex">
-                                <a>
-                                    <h5 class="card-title">{{item.partida.nombre_juego}}
+                                <a data-bs-dismiss="modal" aria-label="Close" [routerLink]="['/detalle_partida', item.partida.id]">
+                                    <h5 id="master" class="card-title">{{item.partida.nombre_juego}}
                                     </h5>
                                 </a>
                                 <h5 class="text-end ms-auto mr-2 text-end"><i class="fa-solid fa-calendar"></i>
@@ -104,13 +102,11 @@
                                 <span>{{item.partida.nivel_jugador}}</span>
                             </div>
                             <span class="d-flex">
-                                <h5 class="text-start mt-2"><i class="fa-solid fa-dice-d20"
-                                        style="color:#28b864"></i>
+                                <h5 class="text-start mt-2"><i class="fa-solid fa-dice-d20" style="color:#28b864"></i>
                                     Master: <a id="master" href="#">{{item.partida.master.username}}</a></h5>
                             </span>
                             <div class="d-flex justify-content-center">
-                                <button id="botonOk" type="button"
-                                    class="btn btn-secondary text-center mx-2">OK</button>
+                                <button (click)="solicitudPartidaRevisada(item.id, i)"  type="button" class="btn btn-primary mt-2">OK</button>
                             </div>
                         </div>
                     </div>

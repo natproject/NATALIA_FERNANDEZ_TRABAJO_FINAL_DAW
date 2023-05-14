@@ -6,3 +6,14 @@
 #master:hover{
     color: #28b864 !important;
 }
+
+#solicitar{
+	color: black;
+    border-color: black;
+}
+
+#solicitar:hover{
+	color: white;
+    border-color: white;
+	background-color: #424143;
+}
