@@ -34,6 +34,7 @@ export class DataService {
   public urlUserPerfil: string = 'http://127.0.0.1:8000/api_user_perfil/'
   public urlSolicitudCampanyaRevisada: string = 'http://127.0.0.1:8000/api_editar_solicitud_campanya/'
   public urlSolicitudPartidaRevisada: string = 'http://127.0.0.1:8000/api_editar_solicitud_partida/'
+  public urlEnviarSolicitudCampanya: string = "http://127.0.0.1:8000/api_solicitudes_campanyas/"
 
 
 
@@ -151,5 +152,15 @@ export class DataService {
       })
     };
     return this.http.delete<any>(`${this.urlSolicitudPartidaRevisada}${id}`, httpOptions);
+  }
+
+  public postEnviarSolicitudCampanya(body: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Token ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json'
+      })
+    };
+    return this.http.post<any>(this.urlEnviarSolicitudCampanya, body, httpOptions);
   }
 }

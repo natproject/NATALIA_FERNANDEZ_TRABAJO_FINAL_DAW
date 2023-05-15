@@ -57,9 +57,11 @@ export interface Campanyas {
   num_usuarios:       number;
   master:             Master;
   provincia:          Provincia;
-  jugadores:          number[];
+  jugadores:          Jugadores[];
   horas:              number;
   resumen:            string;
+  esJugador:          boolean;
+  esMaster:           boolean; 
 }
 
 export interface SolicitudesPartidas {
