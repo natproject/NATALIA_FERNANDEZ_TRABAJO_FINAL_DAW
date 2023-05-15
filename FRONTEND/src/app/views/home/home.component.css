@@ -1,3 +1,7 @@
 #bell:hover{
     color: #28b864;
 }
+
+#cursor{
+    cursor: pointer;
+}

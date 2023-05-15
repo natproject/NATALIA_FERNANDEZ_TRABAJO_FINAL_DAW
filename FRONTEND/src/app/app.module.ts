@@ -22,6 +22,9 @@ import { SolicitudesEnviadasComponent } from './views/solicitudes-enviadas/solic
 import { DetallePartidaComponent } from './views/detalle-partida/detalle-partida.component';
 import { DetalleCampanyaComponent } from './views/detalle-campanya/detalle-campanya.component';
 import { UsuarioComponent } from './views/usuario/usuario.component';
+import { CrearJuegosComponent } from './views/crear-juegos/crear-juegos.component';
+import { FormCrearPartidaComponent } from './views/form-crear-partida/form-crear-partida.component';
+import { FormCrearCampanyaComponent } from './views/form-crear-campanya/form-crear-campanya.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +42,10 @@ import { UsuarioComponent } from './views/usuario/usuario.component';
     SolicitudesEnviadasComponent,
     DetallePartidaComponent,
     DetalleCampanyaComponent,
-    UsuarioComponent
+    UsuarioComponent,
+    CrearJuegosComponent,
+    FormCrearPartidaComponent,
+    FormCrearCampanyaComponent
   ],
   imports: [
     BrowserModule,

@@ -53,20 +53,22 @@
                                 <div class="d-flex flex-column mb-auto mt-3">
                                     <button [routerLink]="['/detalle_campanya', item.id]"
                                         class="btn btn-primary btn-sm mt-2" type="button">Detalles</button>
-                                    <button *ngIf="existeSolicitud(item.id)" (click)="cancelarSolicitud(item.id)" id="botonCancelarSolicitud" [hidden]="item.esMaster"
+                                    <button *ngIf="existeSolicitud(item.id)" (click)="cancelarSolicitud(item.id)"
+                                        id="botonCancelarSolicitud" [hidden]="item.esMaster"
                                         class="btn btn-outline-primary btn-sm mt-3" type="button">
                                         Cancelar solicitud
                                     </button>
-                                    <button *ngIf="!existeSolicitud(item.id) && !item.esJugador" id="solicitar" (click)="enviarSolicitud(item.id)" [hidden]="item.esMaster"
-                                    class="btn btn-outline-primary btn-sm mt-3" type="button">
-                                    Enviar solicitud
-                                </button>
-                                    <button *ngIf="item.esJugador" id="botonCancelarSolicitud" 
+                                    <button *ngIf="!existeSolicitud(item.id) && !item.esJugador" id="solicitar"
+                                        (click)="enviarSolicitud(item.id)" [hidden]="item.esMaster"
+                                        class="btn btn-outline-primary btn-sm mt-3" type="button">
+                                        Enviar solicitud
+                                    </button>
+                                    <button *ngIf="item.esJugador" id="botonCancelarSolicitud"
                                         class="btn btn-outline-primary btn-sm mt-3" type="button">
                                         Abandonar campaña
                                     </button>
-                                    <button *ngIf="item.esMaster" id="botonMaster"
-                                        class="btn btn-primary btn-sm mt-3" type="button">
+                                    <button *ngIf="item.esMaster" id="botonMaster" class="btn btn-primary btn-sm mt-3"
+                                        type="button">
                                         Editar campanya
                                     </button>
                                 </div>

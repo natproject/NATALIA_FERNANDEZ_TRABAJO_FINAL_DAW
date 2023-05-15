@@ -12,3 +12,13 @@
 #master{
     color: var(--bs-body-color);
 }
+
+.card:hover{
+    border-width: 5px !important;
+    border-color: #28b864 !important;
+}
+
+.card{
+    transition-duration: 0.5s;
+    transition-delay: 0.1s;
+}

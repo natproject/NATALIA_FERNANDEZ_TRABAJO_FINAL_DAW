@@ -129,3 +129,7 @@ class SolicitudesPartidasCrearSerializer(serializers.ModelSerializer):
         model = SolicitudesPartidas
         fields = ('id', 'fecha_creacion', 'aceptada', 'jugador_solicitante', 'partida')
 
+class ProvinciasSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Provincia
+        fields = '__all__'

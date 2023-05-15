@@ -46,7 +46,7 @@
                                         Solicitudes enviadas <a [routerLink]="['/solicitudes_enviadas']" class="text-warning"><i  id="bell" class="fa-solid fa-bell fa-lg"></i></a>
                                     </div>
                                     <ng-template #notBell>
-                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                        <div (click)="verSolicitudesEnviadas()" id="cursor" class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                             Solicitudes enviadas
                                         </div>
                                     </ng-template>

@@ -13,8 +13,9 @@ from .serializers import (
     SolicitudesPartidasSerializer,
     SolicitudesCampanyasCrearSerializer,
     SolicitudesPartidasCrearSerializer,
+    ProvinciasSerializer,
     )
-from .models import User, Partida, Campanya, SolicitudesPartidas, SolicitudesCampanyas, PartidaJugador, CampanyaJugador
+from .models import User, Partida, Campanya, SolicitudesPartidas, SolicitudesCampanyas, PartidaJugador, CampanyaJugador, Provincia
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
         
@@ -326,15 +327,28 @@ class MisPartidasView(APIView):
     def get(self, request, format=None):
         partidas = Partida.objects.all()
         if partidas.exists():
-            mis_partidas = Partida.objects.filter(master=request.user)
+            mis_partidas = Partida.objects.filter(jugadores=request.user)
             serializer = PartidaSerializer(mis_partidas, many=True)
-            data = []
-            for obj in serializer.data:
-                user = obj.get('master')
-                if user is not None:
-                    user_obj = User.objects.get(id=user)
-                    obj['master'] = user_obj.username
-                    data.append(obj)
             return Response(serializer.data, status=status.HTTP_200_OK)   
         return Response({'message': 'No hay partidas que mostrar'}, status=status.HTTP_204_NO_CONTENT)
 
+class MisCampanyasView(APIView):   
+    permission_classes = [IsAuthenticated]
+    
+    def get(self, request, format=None):
+        campanyas = Campanya.objects.all()
+        if campanyas.exists():
+            mis_campanyas = Campanya.objects.filter(jugadores=request.user)
+            serializer = CampanyaSerializer(mis_campanyas, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)   
+        return Response({'message': 'No hay campanyas que mostrar'}, status=status.HTTP_204_NO_CONTENT)
+    
+class ProvinciasView(APIView):   
+    permission_classes = [IsAuthenticated]
+    
+    def get(self, request, format=None):
+        provincias = Provincia.objects.all()
+        if provincias.exists():
+            serializer = ProvinciasSerializer(provincias, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)   
+        return Response({'message': 'No hay provincias que mostrar'}, status=status.HTTP_204_NO_CONTENT)

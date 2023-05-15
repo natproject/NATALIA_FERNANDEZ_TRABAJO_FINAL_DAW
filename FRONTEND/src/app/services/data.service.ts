@@ -12,6 +12,7 @@ import { SolicitudesCampanyas } from '../interfaces/response';
 import { CampanyaDetalle } from '../interfaces/response';
 import { PartidaDetalle } from '../interfaces/response';
 import { UserPerfil } from '../interfaces/response';
+import { Provincias } from '../interfaces/response';
 
 @Injectable({
   providedIn: 'root'
@@ -20,23 +21,25 @@ export class DataService {
 
   constructor(public http: HttpClient) { }
 
-  public urlLogin: string = "http://127.0.0.1:8000/api_generate_token/"
-  public urlRegister: string = "http://127.0.0.1:8000/api_register/"
-  public urlPerfilUsuario: string = "http://127.0.0.1:8000/api_user_personal/"
+  public urlLogin: string = "http://127.0.0.1:8000/api_generate_token/";
+  public urlRegister: string = "http://127.0.0.1:8000/api_register/";
+  public urlPerfilUsuario: string = "http://127.0.0.1:8000/api_user_personal/";
   public urlLogout: string = "http://127.0.0.1:8000/api_logout/"
   public urlPartidas: string = "http://127.0.0.1:8000/api_partida/"
-  public urlCampanyas: string = "http://127.0.0.1:8000/api_campanya/"
-  public urlSolicitudesPartidasEnviadas: string = "http://127.0.0.1:8000/api_solicitudes_partidas_enviadas/"
-  public urlSolicitudesCampanyasEnviadas: string = "http://127.0.0.1:8000/api_solicitudes_campanyas_enviadas/"
-  public urlSolicitudesPartidasRecibidas: string = "http://127.0.0.1:8000/api_solicitudes_partidas_recibidas/"
-  public urlCampanyaDetalle: string = 'http://127.0.0.1:8000/api_campanya/'
-  public urlPartidaDetalle: string = 'http://127.0.0.1:8000/api_partida/'
-  public urlUserPerfil: string = 'http://127.0.0.1:8000/api_user_perfil/'
-  public urlSolicitudCampanyaRevisada: string = 'http://127.0.0.1:8000/api_editar_solicitud_campanya/'
-  public urlSolicitudPartidaRevisada: string = 'http://127.0.0.1:8000/api_editar_solicitud_partida/'
-  public urlEnviarSolicitudCampanya: string = "http://127.0.0.1:8000/api_solicitudes_campanyas/"
-
-
+  public urlCampanyas: string = "http://127.0.0.1:8000/api_campanya/";
+  public urlSolicitudesPartidasEnviadas: string = "http://127.0.0.1:8000/api_solicitudes_partidas_enviadas/";
+  public urlSolicitudesCampanyasEnviadas: string = "http://127.0.0.1:8000/api_solicitudes_campanyas_enviadas/";
+  public urlSolicitudesPartidasRecibidas: string = "http://127.0.0.1:8000/api_solicitudes_partidas_recibidas/";
+  public urlCampanyaDetalle: string = 'http://127.0.0.1:8000/api_campanya/';
+  public urlPartidaDetalle: string = 'http://127.0.0.1:8000/api_partida/';
+  public urlUserPerfil: string = 'http://127.0.0.1:8000/api_user_perfil/';
+  public urlSolicitudCampanyaRevisada: string = 'http://127.0.0.1:8000/api_editar_solicitud_campanya/';
+  public urlSolicitudPartidaRevisada: string = 'http://127.0.0.1:8000/api_editar_solicitud_partida/';
+  public urlEnviarSolicitudCampanya: string = "http://127.0.0.1:8000/api_solicitudes_campanyas/";
+  public urlEnviarSolicitudPartida: string = "http://127.0.0.1:8000/api_solicitudes_partidas/"
+  public urlMisPartidas: string = "http://127.0.0.1:8000/api_mis_partidas/";
+  public urlMisCampanyas: string = "http://127.0.0.1:8000/api_mis_campanyas/";
+  public urlProvincias: string = "http://127.0.0.1:8000/api_provincias/";
 
   public getResponseLogin(datosFormulario: any): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(this.urlLogin, datosFormulario);
@@ -162,5 +165,42 @@ export class DataService {
       })
     };
     return this.http.post<any>(this.urlEnviarSolicitudCampanya, body, httpOptions);
+  }
+
+  public postEnviarSolicitudPartida(body: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Token ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json'
+      })
+    };
+    return this.http.post<any>(this.urlEnviarSolicitudPartida, body, httpOptions);
+  }
+
+  public getMisPartidas(): Observable<Partidas> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Token ${localStorage.getItem('token')}`
+      })
+    };
+    return this.http.get<Partidas>(this.urlMisPartidas, httpOptions);
+  }
+
+  public getMisCampanyas(): Observable<Campanyas> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Token ${localStorage.getItem('token')}`
+      })
+    };
+    return this.http.get<Campanyas>(this.urlMisCampanyas, httpOptions);
+  }
+
+  public getProvincias(): Observable<Provincias> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Token ${localStorage.getItem('token')}`
+      })
+    };
+    return this.http.get<Provincias>(this.urlProvincias, httpOptions);
   }
 }

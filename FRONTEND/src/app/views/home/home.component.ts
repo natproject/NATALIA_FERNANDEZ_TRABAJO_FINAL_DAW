@@ -75,11 +75,12 @@ export class HomeComponent {
         console.log(error);
       }
     });
-
-
-
   }
 
+
+  verSolicitudesEnviadas(){
+    this.router.navigate(['/solicitudes_enviadas']);
+  }
 }
 
 

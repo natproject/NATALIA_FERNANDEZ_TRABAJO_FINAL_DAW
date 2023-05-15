@@ -13,7 +13,9 @@ import { SolicitudesEnviadasComponent } from './views/solicitudes-enviadas/solic
 import { DetallePartidaComponent } from './views/detalle-partida/detalle-partida.component';
 import { DetalleCampanyaComponent } from './views/detalle-campanya/detalle-campanya.component';
 import { UsuarioComponent } from './views/usuario/usuario.component';
-
+import { CrearJuegosComponent } from './views/crear-juegos/crear-juegos.component';
+import { FormCrearPartidaComponent } from './views/form-crear-partida/form-crear-partida.component';
+import { FormCrearCampanyaComponent } from './views/form-crear-campanya/form-crear-campanya.component';
 
 const routes: Routes = [
   { path: '', component: LandingComponent },
@@ -24,10 +26,14 @@ const routes: Routes = [
   { path: 'partidas', component: PartidasComponent },
   { path: 'campanyas', component: CampanyasComponent },
   { path: 'buscar', component: BuscarJuegosComponent },
+  { path: 'mis_juegos', component: CrearJuegosComponent },
   { path: 'solicitudes_enviadas', component: SolicitudesEnviadasComponent },
   { path: 'detalle_partida/:id', component: DetallePartidaComponent },
   { path: 'detalle_campanya/:id', component: DetalleCampanyaComponent },
   { path: 'usuario/:id', component: UsuarioComponent },
+  { path: 'crear_partida', component: FormCrearPartidaComponent },
+  { path: 'crear_campanya', component: FormCrearCampanyaComponent },
+
 ];
 
 @NgModule({

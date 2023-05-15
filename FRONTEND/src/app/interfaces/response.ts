@@ -34,9 +34,11 @@ export interface Partidas {
   num_usuarios:       number;
   master:             Master;
   provincia:          Provincia;
-  jugadores:          number[];
+  jugadores:          Jugadores[];
   horas:              number;
   resumen:            string;
+  esJugador:          boolean;
+  esMaster:           boolean; 
 }
 
 export interface Campanyas {
@@ -173,4 +175,9 @@ export interface Perfil {
   image:             string;
   proximos_juegos:   number;
   juegos_terminados: number;
+}
+
+export interface Provincias {
+  id:     number;
+  nombre: string;
 }

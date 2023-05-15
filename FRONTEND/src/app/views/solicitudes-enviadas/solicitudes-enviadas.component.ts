@@ -22,6 +22,8 @@ export class SolicitudesEnviadasComponent {
   public showSolicitudesAceptadas: boolean = false;
   public hiddenCampanya: boolean = false;
   public hiddenPartida: boolean = false;
+  public partida = true;
+  public campanya = false;
 
 
 
@@ -38,6 +40,16 @@ export class SolicitudesEnviadasComponent {
     if (!localStorage.getItem('token')) {
       this.router.navigate(['/login']);
     } else {
+      const showPartida = localStorage.getItem('partida');
+      if (showPartida !== null) {
+        this.partida = showPartida === "true";
+        localStorage.removeItem('partida');
+      }
+      const showCampanya = localStorage.getItem('campanya');
+      if (showCampanya !== null) {
+        this.campanya = showCampanya === "true";
+        localStorage.removeItem('campanya');
+      }
       this.DataService.getSolicitudesPartidasEnviadas().subscribe({
         next: response => {
           this.solicitudesPartidasEnviadas = this.solicitudesPartidasEnviadas.concat(response);
@@ -95,7 +107,7 @@ export class SolicitudesEnviadasComponent {
     this.myButton2.nativeElement.click();
   }
 
-  solicitudPartidaRevisada(id: number, index:number) {
+  solicitudPartidaRevisada(id: number, index: number) {
     this.solicitudesPartidasAceptadas[index].oculto = true;
     this.DataService.delPartidaRevisada(id).subscribe({
       next: () => {
@@ -108,7 +120,7 @@ export class SolicitudesEnviadasComponent {
     });
   }
 
-  solicitudCampanyaRevisada(id: number, index:number ) {
+  solicitudCampanyaRevisada(id: number, index: number) {
     this.solicitudesCampanyasAceptadas[index].oculto = true;
     this.DataService.delCampanyaRevisada(id).subscribe({
       next: () => {
@@ -122,6 +134,19 @@ export class SolicitudesEnviadasComponent {
     });
   }
 
+  cancelarSolicitudCampanya(id: number) {
+    this.DataService.delCampanyaRevisada(id).subscribe({
+      next: () => {
+        localStorage.setItem('campanya', 'true');
+        localStorage.setItem('partida', 'false');
+        window.location.reload();
+      },
+      error: error => {
+        console.error(error);
+      }
+    });
+
+  }
 
 
 }

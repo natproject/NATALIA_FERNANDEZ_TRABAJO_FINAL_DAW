@@ -28,3 +28,25 @@
 #master:hover{
     color: #28b864 !important;
 }
+
+#botonMaster{
+    color: white !important;
+}
+
+#botonMaster:hover{
+    color: black !important;
+    border-color: black;
+}
+
+#botonCancelarSolicitud{
+    color: black !important;
+    border-color: black;
+    background-color: rgba(128, 128, 128, 0.53);
+}
+
+
+#botonCancelarSolicitud:hover{
+    color: white !important;
+    border-color: white;
+	background-color: #424143;
+}

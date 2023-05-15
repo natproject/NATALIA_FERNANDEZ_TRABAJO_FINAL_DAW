@@ -1,0 +1,121 @@
+<div class="container mt-5">
+    <h1 class="text-center mt-5 mb-5" style="color: #28b864;">Crear campaña</h1>
+    <form>
+        <div class="row mb-4">
+            <div class="col">
+                <div class="form-outline">
+                    <input type="text" id="juego_rol" class="form-control" placeholder="D&D"/>
+                    <label class="form-label" for="juego_rol">Juego de rol</label>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-outline">
+                    <input type="text" id="nombre_campanya" class="form-control" placeholder="Cuentos del portal bostezante"/>
+                    <label class="form-label" for="nombre_campanya">Nombre de la campaña</label>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-outline">
+                    <input type="text" id="master" class="form-control" value="{{perfilUsuario[0].username}}"
+                        disabled />
+                    <label class="form-label" for="master">Master</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-outline mb-4">
+            <input type="file" id="image" class="form-control" />
+            <label class="form-label" for="image">Imagen</label>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col">
+                <div class="form-group">
+            
+                    <select name="modalidad" class="form-control" id="modalidad">
+                        <option value="online">Online</option>
+                        <option value="física">Física</option>
+                    </select>
+                    <label class="form-label" for="modalidad">Modalidad</label>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-outline">
+                    <input type="text" id="lugar" class="form-control" placeholder="Discord / C/Falsa nº123" />
+                    <label class="form-label" for="lugar">Plataforma(online) / Dirección(física)</label>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <select name="provincia" class="form-control" id="provincia">
+                        <option *ngFor="let item of provincias" value="item.id">{{item.nombre}}</option>
+                    </select>
+                    <label class="form-label" for="modalidad">Provincia</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col">
+                <div class="form-outline">
+                    <input type="date" id="fecha" class="form-control" min="fechaActual"/>
+                    <label class="form-label" for="fecha">Fecha</label>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-outline">
+                    <input type="time" id="hora_inicio" class="form-control"/>
+                    <label class="form-label" for="hora_inicio">Hora de inicio</label>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-outline">
+                    <input type="time" id="hora_inicio" class="form-control"/>
+                    <label class="form-label" for="hora_inicio">Hora fin</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col">
+                <div class="form-group">
+                    <select name="nivel_jugador" class="form-control" id="nivel_jugador">
+                        <option value="iniciado">Iniciado</option>
+                        <option value="casual">Casual</option>
+                        <option value="experto">Experto</option>
+                    </select>
+                    <label class="form-label" for="nivel_jugador">Nivel de los jugadores</label>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-outline">
+                    <input type="number" id="max_usuarios" class="form-control" min="2" max="15"/>
+                    <label class="form-label" for="lugar">Número máximo de jugadores</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-outline mb-4">
+            <textarea class="form-control" id="requisitos_jugador" rows="4"></textarea>
+            <label class="form-label" for="requisitos_jugador">Requisitos de los jugadores</label>
+        </div>
+
+        <div class="form-outline mb-4">
+            <textarea class="form-control" id="observaciones" rows="4"></textarea>
+            <label class="form-label" for="observaciones">Observaciones sobre nuestra camapaña</label>
+        </div>
+
+        <div class="form-outline mb-4">
+            <textarea class="form-control" id="resumen" rows="4"></textarea>
+            <label class="form-label" for="resumen">Breve resumen de nuestra campaña</label>
+        </div>
+
+        <!-- Submit button -->
+        <div class="row">
+            <div class="col">
+              <button class="btn btn-primary btn-block w-100 mb-5" type="submit">Crear campaña</button>
+            </div>
+        </div>
+
+    </form>
+</div>
