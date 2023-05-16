@@ -128,6 +128,9 @@ class CampanyaView(APIView):
     def post(self, request):
         serializer = CampanyaSerializer(data=request.data)
         if serializer.is_valid():
+            master_id = int(request.data.get('master'))
+            user = User.objects.get(id=master_id)
+            serializer.validated_data['master'] = user
             campanya = serializer.save()
             campanya_jugador = CampanyaJugadorSerializer(data={'campanya': campanya.id, 'jugador': request.user.id})
             if campanya_jugador.is_valid():

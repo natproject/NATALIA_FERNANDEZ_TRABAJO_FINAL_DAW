@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from datetime import datetime
 from django.contrib.auth.models import User
 from .models import Perfil, Provincia,Partida, Campanya, PartidaJugador, CampanyaJugador, SolicitudesCampanyas, SolicitudesPartidas
 
@@ -54,8 +55,8 @@ class CampanyaJugadorSerializer(serializers.ModelSerializer):
      
 class CampanyaSerializer(serializers.ModelSerializer):
     image = serializers.ImageField(max_length=None, use_url=True)
-    hora_inicio = serializers.DateTimeField()
-    hora_fin = serializers.DateTimeField()
+    hora_inicio = serializers.TimeField()
+    hora_fin = serializers.TimeField()
     jugadores = InfoMasterSerializer(read_only=True, many=True)
     provincia = ProvinciaSerializer(read_only=True)
     master = InfoMasterSerializer(read_only=True)
@@ -65,8 +66,8 @@ class CampanyaSerializer(serializers.ModelSerializer):
         fields = '__all__'
     
     def create(self, validated_data):
-        hora_inicio = validated_data['hora_inicio']
-        hora_fin = validated_data['hora_fin']
+        hora_inicio = datetime.combine(datetime.today(), validated_data['hora_inicio'])
+        hora_fin = datetime.combine(datetime.today(), validated_data['hora_fin'])
         horas = (hora_fin - hora_inicio).total_seconds() / 3600.0
         validated_data['horas'] = horas
         campanya = Campanya.objects.create(**validated_data)
