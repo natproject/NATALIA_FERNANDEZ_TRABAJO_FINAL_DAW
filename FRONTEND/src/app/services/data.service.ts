@@ -207,8 +207,7 @@ export class DataService {
   public postCrearPartida(body: any): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Authorization': `Token ${localStorage.getItem('token')}`,
-        'Content-Type': 'application/json'
+        'Authorization': `Token ${localStorage.getItem('token')}`
       })
     };
     return this.http.post<any>(this.urlPartidas, body, httpOptions);
@@ -220,7 +219,6 @@ export class DataService {
         'Authorization': `Token ${localStorage.getItem('token')}`
       })
     };
-  
     return this.http.post<any>(this.urlCampanyas, body, httpOptions);
   }
 }

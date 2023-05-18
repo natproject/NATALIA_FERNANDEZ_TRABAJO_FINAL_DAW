@@ -25,6 +25,8 @@ import { UsuarioComponent } from './views/usuario/usuario.component';
 import { CrearJuegosComponent } from './views/crear-juegos/crear-juegos.component';
 import { FormCrearPartidaComponent } from './views/form-crear-partida/form-crear-partida.component';
 import { FormCrearCampanyaComponent } from './views/form-crear-campanya/form-crear-campanya.component';
+import { FormEditarPartidaComponent } from './views/form-editar-partida/form-editar-partida.component';
+import { FormEditarCampanyaComponent } from './views/form-editar-campanya/form-editar-campanya.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,9 @@ import { FormCrearCampanyaComponent } from './views/form-crear-campanya/form-cre
     UsuarioComponent,
     CrearJuegosComponent,
     FormCrearPartidaComponent,
-    FormCrearCampanyaComponent
+    FormCrearCampanyaComponent,
+    FormEditarPartidaComponent,
+    FormEditarCampanyaComponent
   ],
   imports: [
     BrowserModule,

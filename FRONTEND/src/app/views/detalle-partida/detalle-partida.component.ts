@@ -32,6 +32,8 @@ export class DetallePartidaComponent {
         let formattedFecha = formatDate(fecha, 'dd-MM-yyyy', 'en-US');
         this.partida[0].fecha = formattedFecha;
         console.log(this.partida)
+        console.log(this.partida[0].jugadores)
+        console.log(this.partida[0].provincia.nombre)
         },
         error: error => {
           console.log(error);

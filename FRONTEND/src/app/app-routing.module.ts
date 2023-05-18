@@ -16,6 +16,8 @@ import { UsuarioComponent } from './views/usuario/usuario.component';
 import { CrearJuegosComponent } from './views/crear-juegos/crear-juegos.component';
 import { FormCrearPartidaComponent } from './views/form-crear-partida/form-crear-partida.component';
 import { FormCrearCampanyaComponent } from './views/form-crear-campanya/form-crear-campanya.component';
+import { FormEditarPartidaComponent } from './views/form-editar-partida/form-editar-partida.component';
+import { FormEditarCampanyaComponent } from './views/form-editar-campanya/form-editar-campanya.component';
 
 const routes: Routes = [
   { path: '', component: LandingComponent },
@@ -33,6 +35,8 @@ const routes: Routes = [
   { path: 'usuario/:id', component: UsuarioComponent },
   { path: 'crear_partida', component: FormCrearPartidaComponent },
   { path: 'crear_campanya', component: FormCrearCampanyaComponent },
+  { path: 'editar_partida/:id', component: FormEditarPartidaComponent },
+  { path: 'editar_campanya/:id', component: FormEditarCampanyaComponent },
 
 ];
 

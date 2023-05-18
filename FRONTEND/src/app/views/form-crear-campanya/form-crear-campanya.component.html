@@ -31,22 +31,28 @@
             <div class="col">
                 <div class="form-group">
                     <label class="form-label" for="modalidad">Modalidad</label>
-                    <select name="modalidad" class="form-control" id="modalidad" name="modalidad" [(ngModel)]="datosFormulario.modalidad">
+                    <select class="form-control" id="modalidad" name="modalidad" [(ngModel)]="datosFormulario.modalidad">
                         <option value="online">Online</option>
-                        <option value="física">Física</option>
+                        <option value="fisica">Física</option>
                     </select>
                 </div>
             </div>
             <div class="col">
                 <div class="form-outline">
-                    <label class="form-label" for="lugar">Plataforma(online) / Dirección(física)</label>
-                    <input type="text" id="lugar" name="lugar" class="form-control" [(ngModel)]="datosFormulario.lugar" placeholder="Discord / C/Falsa nº123" />
+                    <label class="form-label" for="lugar">Plataforma</label>
+                    <input type="text" id="lugar" name="lugar" class="form-control" [(ngModel)]="datosFormulario.lugar" placeholder="Discord" />
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-outline">
+                    <label class="form-label" for="lugar">Dirección</label>
+                    <input type="text" id="lugar" name="lugar" class="form-control" [(ngModel)]="datosFormulario.lugar" placeholder="C/Falsa nº123" />
                 </div>
             </div>
             <div class="col">
                 <div class="form-group">
-                    <label class="form-label" for="modalidad">Provincia</label>
-                    <select name="provincia" class="form-control" id="provincia"[(ngModel)]="datosFormulario.provincia">
+                    <label class="form-label" for="provincia">Provincia</label>
+                    <select name="provincia" class="form-control" id="provincia" [(ngModel)]="datosFormulario.provincia">
                         <option *ngFor="let item of provincias" value="item.id">{{item.nombre}}</option>
                     </select>
                 </div>

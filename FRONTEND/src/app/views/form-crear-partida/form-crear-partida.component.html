@@ -5,7 +5,7 @@
             <div class="col">
                 <div class="form-outline">
                     <label class="form-label" for="nombre_juego">Nombre del juego</label>
-                    <input type="text" id="nombre_juego" name="nombre_juego" class="form-control" [(ngModel)]="datosFormulario.nombre_juego" placeholder="Cartas contra la humanidad"/>
+                    <input type="text" id="nombre_juego" name="nombre_juego" class="form-control"  placeholder="Cartas contra la humanidad" [(ngModel)]="datosFormulario.nombre_juego"/>
                 </div>
             </div>
             <div class="col">
@@ -18,7 +18,7 @@
 
         <div class="form-outline mb-4">
             <label class="form-label" for="image">Imagen</label>
-            <input type="file" id="image" name="image" [(ngModel)]="datosFormulario.image"  class="form-control" />
+            <input type="file" id="image" name="image" (change)="onImageSelected($event)" class="form-control" />
         </div>
 
         <div class="row mb-4">
@@ -27,14 +27,20 @@
                     <label class="form-label" for="modalidad">Modalidad</label>
                     <select class="form-control" id="modalidad" name="modalidad" [(ngModel)]="datosFormulario.modalidad">
                         <option value="online">Online</option>
-                        <option value="física">Física</option>
+                        <option value="fisica">Física</option>
                     </select>
                 </div>
             </div>
             <div class="col">
                 <div class="form-outline">
-                    <label class="form-label" for="lugar">Plataforma(online) / Dirección(física)</label>
-                    <input type="text" id="lugar" name="lugar" class="form-control" [(ngModel)]="datosFormulario.lugar" placeholder="Discord / C/Falsa nº123" />
+                    <label class="form-label" for="lugar">Plataforma</label>
+                    <input type="text" id="lugar" name="lugar" class="form-control" [(ngModel)]="datosFormulario.lugar" placeholder="Discord" />
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-outline">
+                    <label class="form-label" for="lugar">Dirección</label>
+                    <input type="text" id="lugar" name="lugar" class="form-control" [(ngModel)]="datosFormulario.lugar" placeholder="C/Falsa nº123" />
                 </div>
             </div>
             <div class="col">

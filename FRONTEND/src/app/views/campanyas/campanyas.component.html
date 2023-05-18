@@ -68,7 +68,7 @@
                                         Abandonar campaña
                                     </button>
                                     <button *ngIf="item.esMaster" id="botonMaster" class="btn btn-primary btn-sm mt-3"
-                                        type="button">
+                                        type="button" [routerLink]="['/editar_campanya', item.id]" >
                                         Editar campanya
                                     </button>
                                 </div>

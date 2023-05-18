@@ -66,7 +66,7 @@
                                         Master: <a [routerLink]="['/usuario', item.master.id]" id="master" href="#">{{item.master.username}}</a></h5>
                                 </span>
                                 <div class="d-flex justify-content-center">
-                                    <button *ngIf="item.esMaster" type="button" class="btn btn-primary mt-2">Editar partida</button>
+                                    <button *ngIf="item.esMaster" type="button" class="btn btn-primary mt-2" [routerLink]="['/editar_partida', item.id]">Editar partida</button>
                                     <button [hidden]="item.esMaster" id="botonCancelarSolicitud" type="button" class="btn btn-primary mt-2">Abandonar partida</button>
                                 </div>
                             </div>
@@ -94,8 +94,8 @@
                                         Master: <a [routerLink]="['/usuario', item.master.id]" id="master" href="#">{{item.master.username}}</a></h5>
                                 </span>
                                 <div class="d-flex justify-content-center">
-                                    <button *ngIf="item.esMaster" type="button" class="btn btn-primary mt-2">Editar partida</button>
-                                    <button [hidden]="item.esMaster" id="botonCancelarSolicitud" type="button" class="btn btn-primary mt-2">Abandonar partida</button>
+                                    <button *ngIf="item.esMaster" type="button" class="btn btn-primary mt-2" [routerLink]="['/editar_campanya', item.id]">Editar campaña</button>
+                                    <button [hidden]="item.esMaster" id="botonCancelarSolicitud" type="button" class="btn btn-primary mt-2">Abandonar campaña</button>
                                 </div>
                             </div>
                         </div>

@@ -1,0 +1,28 @@
+#delete:hover{
+    color: rgb(101, 6, 6);
+    cursor: pointer;
+}
+
+#textoRequisitos{
+    color: #686A6F !important;
+}
+
+#nombreJugadores:hover{
+    color: #28b864;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+li{
+    cursor: pointer;
+}
+
+#deleteJugador{
+    color: #28b864;
+    cursor: pointer;
+}
+
+#deleteJugador:hover{
+    color: rgb(101, 6, 6);
+    cursor: pointer;
+}

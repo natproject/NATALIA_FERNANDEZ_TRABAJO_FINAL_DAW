@@ -39,7 +39,9 @@
                 </ul>
                 <ul class="list-group list-group-flush text-center">
                     <li class="list-group-item"><b>Lista de jugadores: </b> <br>
-                        <p id="nombreJugadores" *ngFor="let item of partida[0].jugadores" class="mt-3"><a [routerLink]="['/usuario', item.id]">{{item.username}}</a></p>
+                        <p id="nombreJugadores" *ngFor="let item of partida[0].jugadores" class="mt-3">
+                            <a [routerLink]="['/usuario', item.id]">{{item.username}}</a>
+                        </p>
                     </li>
                 </ul>
             </div>

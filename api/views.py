@@ -75,9 +75,14 @@ class PartidaView(APIView):
     
     def post(self, request):
         serializer = PartidaSerializer(data=request.data)
+        print(serializer)
         if serializer.is_valid():
+            master_id = int(request.data.get('master'))
+            user = User.objects.get(id=master_id)
+            serializer.validated_data['master'] = user
             partida = serializer.save()
             partida_jugador = PartidaJugadorSerializer(data={'partida': partida.id, 'jugador': request.user.id})
+            print(partida_jugador)
             if partida_jugador.is_valid():
                 partida_jugador.save()
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
