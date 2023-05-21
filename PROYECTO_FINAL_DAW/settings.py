@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'corsheaders',
 ]
 
-TOKEN_EXPIRED_AFTER_SECONDS = 10
+TOKEN_EXPIRED_AFTER_SECONDS = 3600
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

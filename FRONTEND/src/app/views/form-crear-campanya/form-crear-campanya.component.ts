@@ -57,7 +57,10 @@ export class FormCrearCampanyaComponent {
           this.provincias = this.provincias.concat(response);
         },
         error: error => {
-          console.error(error);
+          if (error.status === 401) {
+            this.router.navigate(['/error']);
+            localStorage.clear();
+          }
         }
       });
     }
@@ -97,7 +100,10 @@ export class FormCrearCampanyaComponent {
 
         },
         error: error => {
-          console.error(error)
+          if (error.status === 401) {
+            this.router.navigate(['/error']);
+            localStorage.clear();
+          }
         }
       });
   }

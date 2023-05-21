@@ -27,6 +27,7 @@ import { FormCrearPartidaComponent } from './views/form-crear-partida/form-crear
 import { FormCrearCampanyaComponent } from './views/form-crear-campanya/form-crear-campanya.component';
 import { FormEditarPartidaComponent } from './views/form-editar-partida/form-editar-partida.component';
 import { FormEditarCampanyaComponent } from './views/form-editar-campanya/form-editar-campanya.component';
+import { ErrorPaginaComponent } from './views/error-pagina/error-pagina.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { FormEditarCampanyaComponent } from './views/form-editar-campanya/form-e
     FormCrearPartidaComponent,
     FormCrearCampanyaComponent,
     FormEditarPartidaComponent,
-    FormEditarCampanyaComponent
+    FormEditarCampanyaComponent,
+    ErrorPaginaComponent
   ],
   imports: [
     BrowserModule,

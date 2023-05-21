@@ -56,7 +56,10 @@ export class SolicitudesEnviadasComponent {
           this.calcularPartida(this.solicitudesPartidasEnviadas);
         },
         error: error => {
-          console.log(error);
+          if (error.status === 401) {
+            this.router.navigate(['/error']);
+            localStorage.clear();
+          }
         }
       });
 
@@ -66,7 +69,10 @@ export class SolicitudesEnviadasComponent {
           this.calcularCampanya(this.solicitudesCampanyasEnviadas);
         },
         error: error => {
-          console.log(error);
+          if (error.status === 401) {
+            this.router.navigate(['/error']);
+            localStorage.clear();
+          }
         }
       });
     }
@@ -114,8 +120,11 @@ export class SolicitudesEnviadasComponent {
         console.log('Partida eliminada');
       },
       error: error => {
-        console.error(error);
         this.solicitudesPartidasAceptadas[id].oculto = false;
+        if (error.status === 401) {
+          this.router.navigate(['/error']);
+          localStorage.clear();
+        }
       }
     });
   }
@@ -127,8 +136,11 @@ export class SolicitudesEnviadasComponent {
         console.log('Campanya eliminada');
       },
       error: error => {
-        console.error(error);
         this.solicitudesCampanyasAceptadas[id].oculto = false;
+        if (error.status === 401) {
+          this.router.navigate(['/error']);
+          localStorage.clear();
+        }
 
       }
     });
@@ -142,7 +154,10 @@ export class SolicitudesEnviadasComponent {
         window.location.reload();
       },
       error: error => {
-        console.error(error);
+        if (error.status === 401) {
+          this.router.navigate(['/error']);
+          localStorage.clear();
+        }
       }
     });
 

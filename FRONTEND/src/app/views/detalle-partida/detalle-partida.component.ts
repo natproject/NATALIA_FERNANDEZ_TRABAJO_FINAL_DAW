@@ -36,7 +36,10 @@ export class DetallePartidaComponent {
         console.log(this.partida[0].provincia.nombre)
         },
         error: error => {
-          console.log(error);
+          if (error.status === 401) {
+            this.router.navigate(['/error']);
+            localStorage.clear();
+          }
         }
       });
     }

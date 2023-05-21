@@ -57,7 +57,10 @@ export class FormEditarPartidaComponent {
         console.log(this.partida)
         },
         error: error => {
-          console.log(error);
+          if (error.status === 401) {
+            this.router.navigate(['/error']);
+            localStorage.clear();
+          }
         }
       });
       let valor = localStorage.getItem('perfilUsuario');
@@ -70,7 +73,10 @@ export class FormEditarPartidaComponent {
           this.provincias = this.provincias.concat(response);
         },
         error: error => {
-          console.error(error);
+          if (error.status === 401) {
+            this.router.navigate(['/error']);
+            localStorage.clear();
+          }
         }
       });
     }
@@ -108,7 +114,10 @@ export class FormEditarPartidaComponent {
 
         },
         error: error => {
-          console.error(error.error)
+          if (error.status === 401) {
+            this.router.navigate(['/error']);
+            localStorage.clear();
+          }
         }
       });
   }

@@ -43,7 +43,10 @@ export class PartidasComponent {
           }
         },
         error: error => {
-          console.log(error);
+          if (error.status === 401) {
+            this.router.navigate(['/error']);
+            localStorage.clear();
+          }
         }
       });
       this.DataService.getSolicitudesPartidasEnviadas().subscribe({
@@ -51,7 +54,10 @@ export class PartidasComponent {
           this.solicitudesPartidasEnviadas = this.solicitudesPartidasEnviadas.concat(response);
         },
         error: error => {
-          console.log(error);
+          if (error.status === 401) {
+            this.router.navigate(['/error']);
+            localStorage.clear();
+          }
         }
       });
     }

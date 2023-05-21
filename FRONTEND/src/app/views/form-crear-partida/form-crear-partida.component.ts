@@ -56,7 +56,10 @@ export class FormCrearPartidaComponent {
           this.provincias = this.provincias.concat(response);
         },
         error: error => {
-          console.error(error);
+          if (error.status === 401) {
+            this.router.navigate(['/error']);
+            localStorage.clear();
+          }
         }
       });
     }
@@ -94,7 +97,10 @@ export class FormCrearPartidaComponent {
 
         },
         error: error => {
-          console.error(error.error)
+          if (error.status === 401) {
+            this.router.navigate(['/error']);
+            localStorage.clear();
+          }
         }
       });
   }

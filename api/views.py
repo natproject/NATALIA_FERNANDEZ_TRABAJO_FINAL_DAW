@@ -111,7 +111,7 @@ class PartidaDetailView(APIView):
         if partida is None:
             return Response({'error': 'Partida no encontrada'}, status=status.HTTP_404_NOT_FOUND)
         if partida.master.id != request.user.id:
-            return Response({'error': 'No eres el master de esta partida'}, status=status.HTTP_401_UNAUTHORIZED)
+            return Response({'error': 'No eres el master de esta partida'}, status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
         serializer = PartidaSerializer(partida, data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -123,7 +123,7 @@ class PartidaDetailView(APIView):
         if partida is None:
             return Response({'error': 'Partida no encontrada'}, status=status.HTTP_404_NOT_FOUND)
         if partida.master.id != request.user.id:
-            return Response({'error': 'No eres el master de esta partida'}, status=status.HTTP_401_UNAUTHORIZED)
+            return Response({'error': 'No eres el master de esta partida'}, status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
         partida.delete()
         return Response({'message': 'Partida eliminada correctamente'}, status=status.HTTP_204_NO_CONTENT)
 
@@ -169,7 +169,7 @@ class CampanyaDetailView(APIView):
         if campanya is None:
             return Response({'error': 'Campanya no encontrada'}, status=status.HTTP_404_NOT_FOUND)
         if campanya.master.id != request.user.id:
-            return Response({'error': 'No eres el master de esta partida'}, status=status.HTTP_401_UNAUTHORIZED)
+            return Response({'error': 'No eres el master de esta partida'}, status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
         serializer = CampanyaSerializer(campanya, data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -182,7 +182,7 @@ class CampanyaDetailView(APIView):
         except Campanya.DoesNotExist:
             return Response({'error': 'Campanya no encontrada'}, status=status.HTTP_404_NOT_FOUND)
         if campanya.master.id != request.user.id:
-            return Response({'error': 'No eres el master de esta campanya'}, status=status.HTTP_401_UNAUTHORIZED)
+            return Response({'error': 'No eres el master de esta campanya'}, status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
         campanya.delete()
         return Response({'message': 'Campanya eliminada correctamente'}, status=status.HTTP_204_NO_CONTENT)
     
@@ -234,7 +234,7 @@ class SolicitudPartidaDetailView(APIView):
         except SolicitudesPartidas.DoesNotExist:
             return Response({'error': 'Solicitud no encontrada'}, status=status.HTTP_404_NOT_FOUND)
         if solicitud.jugador_solicitante.id != request.user.id:
-            return Response({'error': 'No eres el usuario de esta solicitud'}, status=status.HTTP_401_UNAUTHORIZED)
+            return Response({'error': 'No eres el usuario de esta solicitud'}, status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
         solicitud.delete()
         return Response({'message': 'Solicitud eliminada correctamente'}, status=status.HTTP_204_NO_CONTENT)    
     
@@ -315,7 +315,7 @@ class SolicitudCampanyaDetailView(APIView):
         except SolicitudesCampanyas.DoesNotExist:
             return Response({'error': 'Solicitud no encontrada'}, status=status.HTTP_404_NOT_FOUND)
         if solicitud.jugador_solicitante.id != request.user.id:
-            return Response({'error': 'No eres el usuario de esta solicitud'}, status=status.HTTP_401_UNAUTHORIZED)
+            return Response({'error': 'No eres el usuario de esta solicitud'}, status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
         solicitud.delete()
         return Response({'message': 'Solicitud eliminada correctamente'}, status=status.HTTP_204_NO_CONTENT)    
 

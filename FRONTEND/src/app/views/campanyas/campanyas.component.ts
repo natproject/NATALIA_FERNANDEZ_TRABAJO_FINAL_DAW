@@ -43,7 +43,10 @@ export class CampanyasComponent {
           }
         },
         error: error => {
-          console.log(error);
+          if (error.status === 401) {
+            this.router.navigate(['/error']);
+            localStorage.clear();
+          }
         }
       });
       this.DataService.getSolicitudesCampanyasEnviadas().subscribe({
@@ -51,7 +54,10 @@ export class CampanyasComponent {
           this.solicitudesCampanyasEnviadas = this.solicitudesCampanyasEnviadas.concat(response);
         },
         error: error => {
-          console.log(error);
+          if (error.status === 401) {
+            this.router.navigate(['/error']);
+            localStorage.clear();
+          }
         }
       });
 
@@ -93,7 +99,10 @@ export class CampanyasComponent {
           window.location.reload();
         },
         error: error => {
-          console.error(error);
+          if (error.status === 401) {
+            this.router.navigate(['/error']);
+            localStorage.clear();
+          }
         }
       });
     }
@@ -113,7 +122,10 @@ export class CampanyasComponent {
         window.location.reload();
       },
       error: error => {
-        console.error(error);
+        if (error.status === 401) {
+          this.router.navigate(['/error']);
+          localStorage.clear();
+        }
       }
     });
   }

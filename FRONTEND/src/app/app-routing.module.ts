@@ -18,6 +18,7 @@ import { FormCrearPartidaComponent } from './views/form-crear-partida/form-crear
 import { FormCrearCampanyaComponent } from './views/form-crear-campanya/form-crear-campanya.component';
 import { FormEditarPartidaComponent } from './views/form-editar-partida/form-editar-partida.component';
 import { FormEditarCampanyaComponent } from './views/form-editar-campanya/form-editar-campanya.component';
+import { ErrorPaginaComponent } from './views/error-pagina/error-pagina.component';
 
 const routes: Routes = [
   { path: '', component: LandingComponent },
@@ -37,6 +38,7 @@ const routes: Routes = [
   { path: 'crear_campanya', component: FormCrearCampanyaComponent },
   { path: 'editar_partida/:id', component: FormEditarPartidaComponent },
   { path: 'editar_campanya/:id', component: FormEditarCampanyaComponent },
+  { path: 'error', component: ErrorPaginaComponent},
 
 ];
 
