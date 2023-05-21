@@ -55,7 +55,7 @@ export class FormEditarPartidaComponent {
         let fecha = new Date(this.partida[0].fecha);
         let formattedFecha = formatDate(fecha, 'dd-MM-yyyy', 'en-US');
         this.partida[0].fecha = formattedFecha;
-        console.log(this.partida)
+        console.log(this.partida[0].jugadores[0].username)
         },
         error: error => {
           if (error.status === 401) {
@@ -135,6 +135,22 @@ export class FormEditarPartidaComponent {
       this.direccionHidden = false;
       this.provinciaHidden = false;
     }
+  }
+
+  eliminarPartida(id: number) {
+    this.DataService.delPartida(id).subscribe({
+      next: () => {
+        alert('PARTIDA ELIMINADA CORRECTAMENTE');
+        this.router.navigate(['/mis_juegos']);
+      },
+      error: error => {
+        if (error.status === 401) {
+          this.router.navigate(['/error']);
+          localStorage.clear();
+        }
+
+      }
+    });
   }
 
 }

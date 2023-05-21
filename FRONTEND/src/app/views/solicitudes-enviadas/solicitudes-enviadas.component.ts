@@ -12,6 +12,7 @@ import { ViewChild, ElementRef } from '@angular/core';
   templateUrl: './solicitudes-enviadas.component.html',
   styleUrls: ['./solicitudes-enviadas.component.css']
 })
+
 export class SolicitudesEnviadasComponent {
   public token = localStorage.getItem('token');
   public solicitudesPartidasEnviadas: SolicitudesPartidas[] = [];
@@ -24,8 +25,6 @@ export class SolicitudesEnviadasComponent {
   public hiddenPartida: boolean = false;
   public partida = true;
   public campanya = false;
-
-
 
   constructor(private router: Router, private DataService: DataService, private http: HttpClient) {
     this.solicitudesPartidasAceptadas = [];
@@ -40,20 +39,11 @@ export class SolicitudesEnviadasComponent {
     if (!localStorage.getItem('token')) {
       this.router.navigate(['/login']);
     } else {
-      const showPartida = localStorage.getItem('partida');
-      if (showPartida !== null) {
-        this.partida = showPartida === "true";
-        localStorage.removeItem('partida');
-      }
-      const showCampanya = localStorage.getItem('campanya');
-      if (showCampanya !== null) {
-        this.campanya = showCampanya === "true";
-        localStorage.removeItem('campanya');
-      }
       this.DataService.getSolicitudesPartidasEnviadas().subscribe({
         next: response => {
           this.solicitudesPartidasEnviadas = this.solicitudesPartidasEnviadas.concat(response);
           this.calcularPartida(this.solicitudesPartidasEnviadas);
+
         },
         error: error => {
           if (error.status === 401) {
@@ -149,8 +139,6 @@ export class SolicitudesEnviadasComponent {
   cancelarSolicitudCampanya(id: number) {
     this.DataService.delCampanyaRevisada(id).subscribe({
       next: () => {
-        localStorage.setItem('campanya', 'true');
-        localStorage.setItem('partida', 'false');
         window.location.reload();
       },
       error: error => {
@@ -160,8 +148,21 @@ export class SolicitudesEnviadasComponent {
         }
       }
     });
-
   }
 
-
+  cancelarSolicitudPartida(id: number) {
+    this.DataService.delPartidaRevisada(id).subscribe({
+      next: () => {
+        window.location.reload();
+      },
+      error: error => {
+        if (error.status === 401) {
+          this.router.navigate(['/error']);
+          localStorage.clear();
+        }
+      }
+    });
+  }
 }
+
+

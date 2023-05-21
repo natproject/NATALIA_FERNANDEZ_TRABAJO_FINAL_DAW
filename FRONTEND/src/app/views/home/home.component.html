@@ -118,9 +118,15 @@
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                        Solicitudes recibidas</div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+                                    <div *ngIf="showBellSolicitudRecibidas; else notBellRecibidas"  class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                        <a [routerLink]="['/solicitudes_recibidas']" class="text-warning">Solicitudes recibidas <i  id="bell" class="fa-solid fa-bell fa-lg"></i></a>
+                                    </div>
+                                    <ng-template #notBellRecibidas>
+                                        <a [routerLink]="['/solicitudes_recibidas']" id="cursor" class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                            Solicitudes recibidas
+                                        </a>
+                                    </ng-template>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{solicitudesCampanyasRecibidasTotal + solicitudesPartidasRecibidasTotal}}</div>
                                 </div>
                                 <div class="col-auto">
                                     <i class="fa-solid fa-inbox fa-2x text-gray-300"></i>

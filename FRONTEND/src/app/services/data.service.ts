@@ -13,6 +13,7 @@ import { CampanyaDetalle } from '../interfaces/response';
 import { PartidaDetalle } from '../interfaces/response';
 import { UserPerfil } from '../interfaces/response';
 import { Provincias } from '../interfaces/response';
+import { PartidasRecibidas } from '../interfaces/response';
 
 @Injectable({
   providedIn: 'root'
@@ -40,6 +41,10 @@ export class DataService {
   public urlMisPartidas: string = "http://127.0.0.1:8000/api_mis_partidas/";
   public urlMisCampanyas: string = "http://127.0.0.1:8000/api_mis_campanyas/";
   public urlProvincias: string = "http://127.0.0.1:8000/api_provincias/";
+  public urlEliminarPartida: string = "http://127.0.0.1:8000/api_partida/";
+  public urlEliminarCampanya: string = "http://127.0.0.1:8000/api_campanya/";
+  public urlSolicitudesCampanyasRecibidas: string = "http://127.0.0.1:8000/api_solicitudes_campanyas_recibidas/";
+
 
   public getResponseLogin(datosFormulario: any): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(this.urlLogin, datosFormulario);
@@ -101,15 +106,6 @@ export class DataService {
       })
     };
     return this.http.get<SolicitudesCampanyas>(this.urlSolicitudesCampanyasEnviadas, httpOptions);
-  }
-
-  public getSolicitudesPartidasRecibidas(): Observable<SolicitudesPartidas> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Authorization': `Token ${localStorage.getItem('token')}`
-      })
-    };
-    return this.http.get<SolicitudesPartidas>(this.urlSolicitudesPartidasRecibidas, httpOptions);
   }
 
   public getCampanyaDetail(id:number): Observable<CampanyaDetalle> {
@@ -220,5 +216,41 @@ export class DataService {
       })
     };
     return this.http.post<any>(this.urlCampanyas, body, httpOptions);
+  }
+
+  public delPartida(id: number): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Token ${localStorage.getItem('token')}`
+      })
+    };
+    return this.http.delete<any>(`${this.urlEliminarPartida}${id}`, httpOptions);
+  }
+
+  public delCampanya(id: number): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Token ${localStorage.getItem('token')}`
+      })
+    };
+    return this.http.delete<any>(`${this.urlEliminarCampanya}${id}`, httpOptions);
+  }
+
+  public getSolicitudesPartidasRecibidas(): Observable<PartidasRecibidas> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Token ${localStorage.getItem('token')}`
+      })
+    };
+    return this.http.get<PartidasRecibidas>(this.urlSolicitudesPartidasRecibidas, httpOptions);
+  }
+
+  public getSolicitudesCampanyasRecibidas(): Observable<SolicitudesCampanyas> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Token ${localStorage.getItem('token')}`
+      })
+    };
+    return this.http.get<SolicitudesCampanyas>(this.urlSolicitudesCampanyasRecibidas, httpOptions);
   }
 }

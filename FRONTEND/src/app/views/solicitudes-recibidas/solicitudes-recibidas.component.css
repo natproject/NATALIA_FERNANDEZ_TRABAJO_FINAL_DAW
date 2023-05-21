@@ -30,3 +30,9 @@
     transition-duration: 0.5s;
     transition-delay: 0.1s;
 }
+
+#rechazar:hover{
+    background-color: rgba(101, 6, 6, 0.831) !important;
+    color: white;
+    border-color:  rgba(101, 6, 6, 0.831);
+}

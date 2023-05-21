@@ -6,6 +6,7 @@ import { DataService } from 'src/app/services/data.service';
 import { HttpClient } from '@angular/common/http';
 import { SolicitudesCampanyas } from 'src/app/interfaces/response';
 import { SolicitudesPartidas } from 'src/app/interfaces/response';
+import { PartidasRecibidas } from 'src/app/interfaces/response';
 
 @Component({
   selector: 'app-home',
@@ -16,11 +17,17 @@ export class HomeComponent {
   public token = localStorage.getItem('token');
   public username = "";
   public showBellSolicitud = false;
+  public showBellSolicitudRecibidas = false;
   public solicitudesPartidasEnviadas: SolicitudesPartidas[] = [];
   public solicitudesCampanyasEnviadas: SolicitudesCampanyas[] = [];
   public solicitudesCampanyasEnviadasTotal: number = 0;
   public solicitudesPartidasEnviadasTotal: number = 0;
   public totalSolicitudesEnviadas: number = 0;
+  public solicitudesPartidasRecibidas: PartidasRecibidas[] = [];
+  public solicitudesCampanyasRecibidas: SolicitudesCampanyas[] = [];
+  public solicitudesCampanyasRecibidasTotal: number = 0;
+  public solicitudesPartidasRecibidasTotal: number = 0;
+  public totalSolicitudesRecibidas: number = 0;
   /*public solicitudesCampanyasAceptadas: SolicitudesCampanyas[] = [];
   public solicitudesPartidasAceptadas: SolicitudesPartidas[] = [];*/
 
@@ -84,8 +91,49 @@ export class HomeComponent {
         }
       }
     });
+
+    this.DataService.getSolicitudesPartidasRecibidas().subscribe({
+      next: response => {
+        this.solicitudesPartidasRecibidasTotal = Object.keys(response).length;
+        this.solicitudesPartidasRecibidas = this.solicitudesPartidasRecibidas.concat(response);
+        for (let i = 0; i < this.solicitudesPartidasRecibidas.length; i++) {
+          if (this.solicitudesPartidasRecibidas[i].aceptada == false) {
+            this.showBellSolicitudRecibidas = true;
+          }
+        }
+      },
+      error: error => {
+        console.log(error)
+        if (error.status === 401) {
+          this.router.navigate(['/error']);
+          localStorage.clear();
+        }
+      }
+    });
+
+    this.DataService.getSolicitudesCampanyasRecibidas().subscribe({
+      next: response => {
+        this.solicitudesCampanyasRecibidasTotal = Object.keys(response).length;
+        this.solicitudesCampanyasRecibidas = this.solicitudesCampanyasRecibidas.concat(response);
+        for (let i = 0; i < this.solicitudesCampanyasRecibidas.length; i++) {
+          if (this.solicitudesCampanyasRecibidas[i].aceptada == false) {
+            this.showBellSolicitudRecibidas = true;
+          }
+        }
+      },
+      error: error => {
+        console.log(error)
+        if (error.status === 401) {
+          this.router.navigate(['/error']);
+          localStorage.clear();
+        }
+      }
+    });
   }
 
+  verSolicitudesRecibidas(){
+    this.router.navigate(['/solicitudes_recibidas']);
+  }
 
   verSolicitudesEnviadas(){
     this.router.navigate(['/solicitudes_enviadas']);

@@ -16,8 +16,7 @@ export class HeaderLandingComponent {
     this.DataService.getResponseLogout().subscribe({
       next: response => {
         if (response) {
-          localStorage.clear();
-          this.router.navigate(['/home']);
+          this.router.navigate(['/']);
         }
       },
       error: error => {
@@ -28,7 +27,6 @@ export class HeaderLandingComponent {
 
   out() {
     if(!localStorage.getItem('token')){
-      localStorage.clear();
       this.router.navigate(['']);
     }else{
       this.router.navigate(['/home']);

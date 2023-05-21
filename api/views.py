@@ -15,6 +15,8 @@ from .serializers import (
     SolicitudesCampanyasCrearSerializer,
     SolicitudesPartidasCrearSerializer,
     ProvinciasSerializer,
+    SolicitudesPartidasRecibidasSerializer,
+    SolicitudesCampanyasRecibidasSerializer,
     )
 from .models import User, Partida, Campanya, SolicitudesPartidas, SolicitudesCampanyas, PartidaJugador, CampanyaJugador, Provincia
 from rest_framework import status
@@ -233,9 +235,15 @@ class SolicitudPartidaDetailView(APIView):
             solicitud = SolicitudesPartidas.objects.get(pk=pk)
         except SolicitudesPartidas.DoesNotExist:
             return Response({'error': 'Solicitud no encontrada'}, status=status.HTTP_404_NOT_FOUND)
+        
         if solicitud.jugador_solicitante.id != request.user.id:
-            return Response({'error': 'No eres el usuario de esta solicitud'}, status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
-        solicitud.delete()
+            partida = Partida.objects.get(pk=solicitud.partida.id)
+            print(partida.master.id)
+            print(request.user.id)
+            
+            if str(partida.master.id) != str(request.user.id):
+                return Response({'error': 'No tienes permiso para realizar esta acción'}, status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
+        solicitud.delete()  
         return Response({'message': 'Solicitud eliminada correctamente'}, status=status.HTTP_204_NO_CONTENT)    
     
 class MisSolicitudesPartidasEnviadasView(APIView):
@@ -262,7 +270,7 @@ class MisSolicitudesPartidasRecibidasView(APIView):
         solicitudes = SolicitudesPartidas.objects.filter(partida__in=mis_partidas, aceptada=False)
         if not solicitudes.exists():
             return Response({'error': 'No tienes solicitudes en tus partidas'}, status=status.HTTP_404_NOT_FOUND)
-        serializer = SolicitudesPartidasSerializer(solicitudes, many=True)
+        serializer = SolicitudesPartidasRecibidasSerializer(solicitudes, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 class SolicitudesCampanyasView(APIView):
@@ -343,7 +351,7 @@ class MisSolicitudesCampanyasRecibidasView(APIView):
         solicitudes = SolicitudesCampanyas.objects.filter(campanya__in=mis_campanyas, aceptada=False)
         if not solicitudes.exists():
             return Response({'error': 'No tienes solicitudes en tus campañas'}, status=status.HTTP_404_NOT_FOUND)
-        serializer = SolicitudesCampanyasSerializer(solicitudes, many=True)
+        serializer = SolicitudesCampanyasRecibidasSerializer(solicitudes, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
 class MisPartidasView(APIView):   

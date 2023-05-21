@@ -19,6 +19,7 @@ import { FormCrearCampanyaComponent } from './views/form-crear-campanya/form-cre
 import { FormEditarPartidaComponent } from './views/form-editar-partida/form-editar-partida.component';
 import { FormEditarCampanyaComponent } from './views/form-editar-campanya/form-editar-campanya.component';
 import { ErrorPaginaComponent } from './views/error-pagina/error-pagina.component';
+import { SolicitudesRecibidasComponent } from './views/solicitudes-recibidas/solicitudes-recibidas.component';
 
 const routes: Routes = [
   { path: '', component: LandingComponent },
@@ -31,6 +32,7 @@ const routes: Routes = [
   { path: 'buscar', component: BuscarJuegosComponent },
   { path: 'mis_juegos', component: CrearJuegosComponent },
   { path: 'solicitudes_enviadas', component: SolicitudesEnviadasComponent },
+  { path: 'solicitudes_recibidas', component: SolicitudesRecibidasComponent },
   { path: 'detalle_partida/:id', component: DetallePartidaComponent },
   { path: 'detalle_campanya/:id', component: DetalleCampanyaComponent },
   { path: 'usuario/:id', component: UsuarioComponent },

@@ -113,7 +113,7 @@ export class PartidasComponent {
       aceptada: false
     };
     const json = JSON.stringify(data);
-    this.DataService.postEnviarSolicitudCampanya(json).subscribe({
+    this.DataService.postEnviarSolicitudPartida(json).subscribe({
       next: () => {
         window.location.reload();
       },

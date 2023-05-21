@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
 import { HttpClient } from '@angular/common/http';
-import { CampanyaDetalle, PerfilUsuario, Provincias } from 'src/app/interfaces/response';
+import { CampanyaDetalle, Jugadores, PerfilUsuario, Provincias } from 'src/app/interfaces/response';
 import { formatDate } from '@angular/common';
 import { NgForm } from '@angular/forms';
 
@@ -15,6 +15,7 @@ import { NgForm } from '@angular/forms';
 })
 
 export class FormEditarCampanyaComponent {
+  public jugadores: Jugadores[] = []
   public plataformaHidden: boolean = true;
   public direccionHidden: boolean = true;
   public provinciaHidden: boolean = true;
@@ -137,6 +138,22 @@ export class FormEditarCampanyaComponent {
       this.direccionHidden = false;
       this.provinciaHidden = false;
     }
+  }
+
+  eliminarCampanya(id: number) {
+    this.DataService.delCampanya(id).subscribe({
+      next: () => {
+        alert('CAMPAÑA ELIMINADA CORRECTAMENTE');
+        this.router.navigate(['/mis_juegos']);
+      },
+      error: error => {
+        if (error.status === 401) {
+          this.router.navigate(['/error']);
+          localStorage.clear();
+        }
+
+      }
+    });
   }
 
 }

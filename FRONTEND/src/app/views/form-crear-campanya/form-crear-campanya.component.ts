@@ -20,7 +20,7 @@ export class FormCrearCampanyaComponent {
   public fechaActual: number = 0
   public image: string | Blob = ''
   public datosFormulario = {
-    master: 0,
+    master: '',
     juego_rol: '',
     nombre_campanya: '',
     image: File,
@@ -28,8 +28,8 @@ export class FormCrearCampanyaComponent {
     lugar: '',
     provincia: 0,
     fecha: '',
-    hora_inicio: '00:00',
-    hora_fin: '00:00',
+    hora_inicio: '',
+    hora_fin: '',
     nivel_jugador: '',
     max_usuarios: 0,
     requisitos_jugador: '',
@@ -100,6 +100,7 @@ export class FormCrearCampanyaComponent {
 
         },
         error: error => {
+          console.log(error)
           if (error.status === 401) {
             this.router.navigate(['/error']);
             localStorage.clear();

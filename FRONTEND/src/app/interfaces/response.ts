@@ -182,3 +182,16 @@ export interface Provincias {
   id:     number;
   nombre: string;
 }
+
+export interface PartidasRecibidas {
+  id:                  number;
+  fecha_creacion:      Date;
+  aceptada:            boolean;
+  jugador_solicitante: JugadorSolicitante;
+  partida:             Partida;
+}
+
+export interface JugadorSolicitante {
+  id:       number;
+  username: string;
+}

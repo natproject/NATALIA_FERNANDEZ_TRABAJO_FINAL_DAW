@@ -4,14 +4,14 @@
         <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
             <div class="col-6 ">
                 <li class="nav-item text-center d-flex justify-content-center" role="presentation">
-                    <button [ngClass]="{ 'active': partida }" class="nav-link w-100 text-center" id="pills-home-tab" data-bs-toggle="pill"
+                    <button active class="nav-link w-100 text-center" id="pills-home-tab" data-bs-toggle="pill"
                         data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"
                         aria-selected="true">PARTIDAS</button>
                 </li>
             </div>
             <div class="col-6 ">
                 <li class="nav-item text-center d-flex justify-content-center" role="presentation">
-                    <button [ngClass]="{ 'active': campanya }"class="nav-link w-100 text-center" id="pills-profile-tab" data-bs-toggle="pill"
+                    <button class="nav-link w-100 text-center" id="pills-profile-tab" data-bs-toggle="pill"
                         data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile"
                         aria-selected="false">CAMPAÑAS</button>
                 </li>
@@ -42,7 +42,7 @@
                                     Master: <a [routerLink]="['/usuario', item.partida.master.id]" id="master" href="#">{{item.partida.master.username}}</a></h5>
                             </span>
                             <div class="d-flex justify-content-center">
-                                <button  type="button" class="btn btn-primary mt-2">Cancelar solicitud</button>
+                                <button (click)="cancelarSolicitudPartida(item.id)" type="button" class="btn btn-primary mt-2">Cancelar solicitud</button>
                             </div>
                         </div>
                     </div>
