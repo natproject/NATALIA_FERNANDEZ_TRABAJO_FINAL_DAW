@@ -131,7 +131,7 @@ export interface CampanyaDetalle {
   hora_inicio:        string;
   hora_fin:           string;
   jugadores:          Jugadores[];
-  provincia:          null;
+  provincia:          Provincia;
   modalidad:          string;
   lugar:              string;
   fecha:              string;
@@ -154,6 +154,7 @@ export interface Jugadores {
 }
 
 export interface Provincia {
+  id: number;
   nombre: string;
 }
 

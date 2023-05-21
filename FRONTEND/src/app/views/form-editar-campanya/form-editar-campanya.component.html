@@ -1,1 +1,179 @@
-<p>form-editar-campanya works!</p>
+<div class="container mt-5 mb-5">
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <div class="card w-100">
+                <span class="d-flex card-header card-title">
+                    <h1 style="color:#424143">{{campanya[0].juego_rol}} - {{campanya[0].nombre_campanya}}</h1>
+                    <h1 class="text-end ms-auto" style="color:#424143"><i id="delete"
+                            class="fa-solid fa-trash text-end"></i></h1>
+                </span>
+
+                <div id="cambiarFoto" class="card">
+                    <img id="foto" class="card-img-top w-50" style="margin-left: 13rem; opacity: 0.5;"
+                        src="http://127.0.0.1:8000/{{campanya[0].image}}" alt="juegos mesa">
+                </div>
+
+                <div class="card-body">
+                    <span class="d-flex">
+                        <h5 class="text-start"><i class="fa-solid fa-dice-d20" style="color:#28b864"></i> Master: <a
+                                [routerLink]="['/usuario', campanya[0].master.id]" id="master"
+                                href="#">{{campanya[0].master.username}}</a></h5>
+                        <h5 class="text-end ms-auto mr-2">{{campanya[0].num_usuarios}}/{{campanya[0].max_usuarios}}
+                            jugadores</h5>
+
+                    </span>
+                </div>
+                <form #formulario="ngForm" (submit)="enviarDatos(formulario)">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <div class="form-outline">
+                                <label class="form-label" for="max_usuarios" style="font-weight:bolder;">Número máximo
+                                    de jugadores</label>
+                                <input type="number" id="max_usuarios" name="max_usuarios" class="form-control" min="2"
+                                    max="15" [(ngModel)]="datosFormulario.max_usuarios" />
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <p class="card-text">{{campanya[0].resumen}}</p>
+                            <label class="form-label" for="resumen" style="font-weight:bolder;">Breve resumen de nuestra
+                                campaña</label>
+                            <textarea class="form-control" id="resumen" name="resumen" rows="2"
+                                [(ngModel)]="datosFormulario.resumen" value=""></textarea>
+
+                        </li>
+                        <li class="list-group-item" style="text-transform: capitalize">Modalidad:
+                            <b>{{campanya[0].modalidad}}</b>
+                        </li>
+                        <li *ngIf="campanya[0].modalidad === 'online'" class="list-group-item">Lugar:
+                            <b>{{campanya[0].lugar}}</b>
+                        </li>
+
+                        <li *ngIf="campanya[0].modalidad === 'fisica'" class="list-group-item">Lugar:
+                            <b>{{campanya[0].lugar}} - {{campanya[0].provincia.nombre}}</b>
+                        </li>
+                        <li class="list-group-item" style="text-transform: capitalize">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label class="form-label mt-2" for="modalidad"
+                                        style="font-weight:bolder;">Modalidad</label>
+                                    <select class="form-control" id="modalidad" name="modalidad"
+                                        [(ngModel)]="datosFormulario.modalidad" (change)="onModalidadSelected()">
+                                        <option value="online">Online</option>
+                                        <option value="fisica">Física</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-outline" [hidden]="plataformaHidden">
+                                    <label class="form-label mt-2" for="lugar"
+                                        style="font-weight:bolder;">Plataforma</label>
+                                    <input type="text" id="lugar" name="lugar" class="form-control"
+                                        [(ngModel)]="datosFormulario.lugar" placeholder="Discord" />
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-outline" [hidden]="direccionHidden">
+                                    <label class="form-label mt-2" for="lugar"
+                                        style="font-weight:bolder;">Dirección</label>
+                                    <input type="text" id="lugar" name="lugar" class="form-control"
+                                        [(ngModel)]="datosFormulario.lugar" placeholder="C/Falsa nº123" />
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group" [hidden]="provinciaHidden">
+                                    <label class="form-label" for="provincia"
+                                        style="font-weight:bolder;">Provincia</label>
+                                    <select name="provincia" class="form-control" id="provincia"
+                                        [(ngModel)]="datosFormulario.provincia">
+                                        <option *ngFor="let item of provincias" value="item.id">{{item.nombre}}</option>
+                                                                                <option value="campanya[0].provincia.id" selected>{{campanya[0].provincia.nombre}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="list-group-item">Fecha: <b>{{campanya[0].fecha}}</b> - Hora:
+                            <b>{{campanya[0].hora_inicio}}</b>
+                        </li>
+                        <li class="list-group-item">Duración campaña: <b>{{campanya[0].horas}} horas</b></li>
+                        <li class="list-group-item">
+                            <div class="col">
+                                <div class="form-outline">
+                                    <label class="form-label mt-2" for="fecha" style="font-weight:bolder;">Fecha</label>
+                                    <input type="date" id="fecha" name="fecha" class="form-control" min="fechaActual"
+                                        [(ngModel)]="datosFormulario.fecha" />
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-outline">
+                                    <label class="form-label mt-2" for="hora_inicio" style="font-weight:bolder;">Hora de
+                                        inicio</label>
+                                    <input type="time" id="hora_inicio" name="hora_inicio" class="form-control"
+                                        [(ngModel)]="datosFormulario.hora_inicio" />
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-outline">
+                                    <label class="form-label mt-2" for="hora_fin" style="font-weight:bolder;">Hora
+                                        fin</label>
+                                    <input type="time" id="hora_fin" name="hora_fin"
+                                        [(ngModel)]="datosFormulario.hora_fin" class="form-control" />
+                                </div>
+                            </div>
+                        </li>
+                        <li class="list-group-item">Nivel de los jugadores: <b>{{campanya[0].nivel_jugador}}</b>
+                            <div class="form-group">
+                                <select id="nivel_jugador" name="nivel_jugador" class="form-control"
+                                    [(ngModel)]="datosFormulario.nivel_jugador">
+                                    <option value="iniciado">Iniciado</option>
+                                    <option value="casual">Casual</option>
+                                    <option value="experto">Experto</option>
+                                </select>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item" style="color:#28b864"><b>Requisitos jugadores: </b> <br>
+                            <p class="mt-1" style="color: #686A6F">{{campanya[0].requisitos_jugador}}</p>
+
+                            <textarea class="form-control" id="requisitos_jugador" name="requisitos_jugador"
+                                [(ngModel)]="datosFormulario.requisitos_jugador" rows="4"></textarea>
+                        </li>
+                    </ul>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item" style="color:#28b864"><b>Observaciones: </b> <br>
+                            <p class="mt-1" style="color: #686A6F">{{campanya[0].observaciones}}</p>
+
+                            <textarea class="form-control" id="observaciones" name="observaciones" rows="4"
+                                [(ngModel)]="datosFormulario.observaciones"></textarea>
+                        </li>
+                    </ul>
+                    <ul class="list-group list-group-flush text-center">
+                        <li class="list-group-item"><b>Lista de jugadores: </b> <br>
+                            <p id="nombreJugadores" *ngFor="let item of campanya[0].jugadores" class="mt-3"><a
+                                    [routerLink]="['/usuario', item.id]">{{item.username}}</a>&nbsp;&nbsp;<i
+                                    id="deleteJugador" class="fa-solid fa-trash text-end"></i></p>
+                        </li>
+                    </ul>
+                    <ul class="list-group list-group-flush text-center">
+                        <li class="list-group-item">
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="image" style="font-weight:bolder;">Imagen</label>
+                                <input type="file" id="image" name="image" (change)="onImageSelected($event)"
+                                    class="form-control" />
+                            </div>
+                        </li>
+                    </ul>
+                    <ul class="list-group list-group-flush text-center">
+                        <li class="list-group-item">
+                            <button class="btn btn-primary btn-block w-100 mb-5" type="submit">Guardar campaña</button>
+                        </li>
+                    </ul>
+                </form>
+            </div>
+        </div>
+        <div class="col-2"></div>
+    </div>
+</div>

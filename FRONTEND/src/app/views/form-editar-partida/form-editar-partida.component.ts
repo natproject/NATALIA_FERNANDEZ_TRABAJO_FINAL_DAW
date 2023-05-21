@@ -13,6 +13,7 @@ import { NgForm } from '@angular/forms';
   templateUrl: './form-editar-partida.component.html',
   styleUrls: ['./form-editar-partida.component.css']
 })
+
 export class FormEditarPartidaComponent {
   public plataformaHidden: boolean = true;
   public direccionHidden: boolean = true;
