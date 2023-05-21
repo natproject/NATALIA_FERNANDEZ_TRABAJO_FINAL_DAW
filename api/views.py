@@ -1,3 +1,4 @@
+from datetime import timezone
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
@@ -18,6 +19,7 @@ from .serializers import (
 from .models import User, Partida, Campanya, SolicitudesPartidas, SolicitudesCampanyas, PartidaJugador, CampanyaJugador, Provincia
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
+from api.authentication import ExpiringTokenAuthentication
         
 class UserRegisterView(APIView):
     permission_classes = [AllowAny]
@@ -37,8 +39,9 @@ class UserRegisterView(APIView):
 
 
 class LogoutView(APIView):
+    authentication_classes = [ExpiringTokenAuthentication]
     permission_classes = [IsAuthenticated]
-
+    
     def get(self, request, format=None):
         if request.user.is_authenticated:
             request.user.auth_token.delete()
@@ -47,6 +50,7 @@ class LogoutView(APIView):
 
 
 class UserPersonalView(APIView):   
+    authentication_classes = [ExpiringTokenAuthentication]
     permission_classes = [IsAuthenticated]
 
     def get(self, request, format=None):
@@ -54,8 +58,9 @@ class UserPersonalView(APIView):
         return Response(serializer.data)
 
 class UserPerfilView(APIView):   
+    authentication_classes = [ExpiringTokenAuthentication]
     permission_classes = [IsAuthenticated]
-
+    
     def get(self, request, pk):
         user = User.objects.get(pk=pk)
         if user is None:
@@ -64,6 +69,7 @@ class UserPerfilView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 class PartidaView(APIView):   
+    authentication_classes = [ExpiringTokenAuthentication]
     permission_classes = [IsAuthenticated]
 
     def get(self, request, format=None):
@@ -90,6 +96,7 @@ class PartidaView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class PartidaDetailView(APIView):
+    authentication_classes = [ExpiringTokenAuthentication]
     permission_classes = [IsAuthenticated]
 
     def get(self, request, pk):
@@ -121,8 +128,9 @@ class PartidaDetailView(APIView):
         return Response({'message': 'Partida eliminada correctamente'}, status=status.HTTP_204_NO_CONTENT)
 
 class CampanyaView(APIView):   
+    authentication_classes = [ExpiringTokenAuthentication]
     permission_classes = [IsAuthenticated]
-
+    
     def get(self, request, format=None):
         campanyas = Campanya.objects.all()
         if campanyas.exists():
@@ -145,6 +153,7 @@ class CampanyaView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class CampanyaDetailView(APIView):
+    authentication_classes = [ExpiringTokenAuthentication]
     permission_classes = [IsAuthenticated]
 
     def get(self, request, pk):
@@ -178,6 +187,7 @@ class CampanyaDetailView(APIView):
         return Response({'message': 'Campanya eliminada correctamente'}, status=status.HTTP_204_NO_CONTENT)
     
 class SolicitudesPartidasView(APIView):
+    authentication_classes = [ExpiringTokenAuthentication]
     permission_classes = [IsAuthenticated]
     
     def post(self, request):
@@ -193,8 +203,9 @@ class SolicitudesPartidasView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
  
 class SolicitudPartidaDetailView(APIView):
+    authentication_classes = [ExpiringTokenAuthentication]
     permission_classes = [IsAuthenticated]
-
+    
     def put(self, request, pk):
         solicitud = SolicitudesPartidas.objects.get(pk=pk)
         if solicitud is None:
@@ -228,8 +239,9 @@ class SolicitudPartidaDetailView(APIView):
         return Response({'message': 'Solicitud eliminada correctamente'}, status=status.HTTP_204_NO_CONTENT)    
     
 class MisSolicitudesPartidasEnviadasView(APIView):
+    authentication_classes = [ExpiringTokenAuthentication]
     permission_classes = [IsAuthenticated]
-
+    
     def get(self, request):
         user = request.user
         solicitudes = SolicitudesPartidas.objects.filter(jugador_solicitante=user)
@@ -239,8 +251,9 @@ class MisSolicitudesPartidasEnviadasView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
            
 class MisSolicitudesPartidasRecibidasView(APIView):
+    authentication_classes = [ExpiringTokenAuthentication]
     permission_classes = [IsAuthenticated]
-
+    
     def get(self, request):
         user = request.user
         mis_partidas = Partida.objects.filter(master=user)
@@ -253,6 +266,7 @@ class MisSolicitudesPartidasRecibidasView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 class SolicitudesCampanyasView(APIView):
+    authentication_classes = [ExpiringTokenAuthentication]
     permission_classes = [IsAuthenticated]
     
     def post(self, request):
@@ -269,8 +283,9 @@ class SolicitudesCampanyasView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class SolicitudCampanyaDetailView(APIView):
+    authentication_classes = [ExpiringTokenAuthentication]
     permission_classes = [IsAuthenticated]
-        
+         
     def put(self, request, pk):
         solicitud = SolicitudesCampanyas.objects.get(pk=pk)
         if solicitud is None:
@@ -305,8 +320,9 @@ class SolicitudCampanyaDetailView(APIView):
         return Response({'message': 'Solicitud eliminada correctamente'}, status=status.HTTP_204_NO_CONTENT)    
 
 class MisSolicitudesCampanyasEnviadasView(APIView):
+    authentication_classes = [ExpiringTokenAuthentication]
     permission_classes = [IsAuthenticated]
-
+    
     def get(self, request):
         user = request.user
         solicitudes = SolicitudesCampanyas.objects.filter(jugador_solicitante=user)
@@ -316,8 +332,9 @@ class MisSolicitudesCampanyasEnviadasView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 class MisSolicitudesCampanyasRecibidasView(APIView):
+    authentication_classes = [ExpiringTokenAuthentication]
     permission_classes = [IsAuthenticated]
-
+    
     def get(self, request):
         user = request.user
         mis_campanyas = Campanya.objects.filter(master=user)
@@ -330,6 +347,7 @@ class MisSolicitudesCampanyasRecibidasView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
     
 class MisPartidasView(APIView):   
+    authentication_classes = [ExpiringTokenAuthentication]
     permission_classes = [IsAuthenticated]
     
     def get(self, request, format=None):
@@ -341,6 +359,7 @@ class MisPartidasView(APIView):
         return Response({'message': 'No hay partidas que mostrar'}, status=status.HTTP_204_NO_CONTENT)
 
 class MisCampanyasView(APIView):   
+    authentication_classes = [ExpiringTokenAuthentication]
     permission_classes = [IsAuthenticated]
     
     def get(self, request, format=None):
@@ -352,6 +371,7 @@ class MisCampanyasView(APIView):
         return Response({'message': 'No hay campanyas que mostrar'}, status=status.HTTP_204_NO_CONTENT)
     
 class ProvinciasView(APIView):   
+    authentication_classes = [ExpiringTokenAuthentication]
     permission_classes = [IsAuthenticated]
     
     def get(self, request, format=None):

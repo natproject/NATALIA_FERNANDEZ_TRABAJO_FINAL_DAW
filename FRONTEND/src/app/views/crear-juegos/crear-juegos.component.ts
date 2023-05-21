@@ -12,6 +12,7 @@ import { formatDate } from '@angular/common';
   styleUrls: ['./crear-juegos.component.css']
 })
 export class CrearJuegosComponent {
+  public p: number = 1;
   public misPartidas: Partidas[] = []
   public misCampanyas: Campanyas[] = []
   public perfilUsuario: PerfilUsuario[] = [];
@@ -64,14 +65,6 @@ export class CrearJuegosComponent {
     }
   }
 
-  public crearPartidas() {
-    this.router.navigate(['/crear_partida']);
-  }
-
-  public crearCampanyas() {
-    this.router.navigate(['/crear_campanya']);
-  }
-
   calcularPartida(partidas: Partidas[], user: PerfilUsuario[]) {
     for (let i = 0; i < partidas.length; i++) {
       if (user[0].id == partidas[i].master.id) {
@@ -90,5 +83,17 @@ export class CrearJuegosComponent {
         campanyas[i].esMaster = false;
       }
     }
+  }
+
+  public crearPartidas() {
+    this.router.navigate(['/crear_partida']);
+  }
+
+  public crearCampanyas() {
+    this.router.navigate(['/crear_campanya']);
+  }
+
+  onNavPillsChange() {
+    this.p = 1;
   }
 }

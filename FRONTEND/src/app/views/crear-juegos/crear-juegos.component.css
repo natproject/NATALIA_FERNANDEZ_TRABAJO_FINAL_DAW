@@ -1,44 +1,49 @@
+.custom-pagination ::ng-deep .ngx-pagination .current {
+    background: red;
+}
+
 #foto {
     opacity: 0.5;
     border-width: 2px !important;
 }
 
-#fotoboton:hover{
+#fotoboton:hover {
     border-width: 10px !important;
     border-color: #28b864 !important;
-    cursor:pointer;
+    cursor: pointer;
 }
 
-#fotoboton{
+#fotoboton {
     transition-duration: 0.5s;
     transition-delay: 0.1s;
 }
 
-.card:hover{
+.card:hover {
     border-width: 5px !important;
     border-color: #28b864 !important;
 }
 
-.card{
+.card {
     transition-duration: 0.5s;
     transition-delay: 0.1s;
 }
 
-#botonCancelarSolicitud{
+#botonCancelarSolicitud {
     color: black !important;
     border-color: black;
     background-color: rgba(128, 128, 128, 0.53);
 }
 
-#botonCancelarSolicitud:hover{
+#botonCancelarSolicitud:hover {
     color: white !important;
     border-color: white;
-	background-color: #424143;
+    background-color: #424143;
 }
 
-#master:hover{
-    color:#28b864
+#master:hover {
+    color: #28b864
 }
-#master{
+
+#master {
     color: var(--bs-body-color);
 }

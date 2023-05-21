@@ -22,4 +22,5 @@ export class BuscarJuegosComponent {
   public verCampanyas() {
     this.router.navigate(['/campanyas']);
   }
+
 }
