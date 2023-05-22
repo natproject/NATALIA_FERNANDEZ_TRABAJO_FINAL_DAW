@@ -1,16 +1,11 @@
-/*.gradient-custom-2 {
-
-    background: #64c58e;
-    
-
-    background: -webkit-linear-gradient(to right, rgb(194, 251, 215), rgba(166, 193, 238, 1));
-    
-
-    background: linear-gradient(to right, rgb(194, 251, 215), rgba(166, 193, 238, 1))
-    }
-*/
-
-
 #boton1{
+    color: #28b864;
+    border-color: #28b864;
     margin-right: 1.3rem !important;
+}
+
+#boton1:hover{
+    color: white;
+    border-color: white;
+    background-color: #28b864;
 }

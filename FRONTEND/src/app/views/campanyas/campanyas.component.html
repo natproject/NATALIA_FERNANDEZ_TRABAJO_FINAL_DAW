@@ -53,10 +53,17 @@
                                 <div class="d-flex flex-column mb-auto mt-3">
                                     <button [routerLink]="['/detalle_campanya', item.id]"
                                         class="btn btn-primary btn-sm mt-2" type="button">Detalles</button>
-                                    <button *ngIf="existeSolicitud(item.id)" (click)="cancelarSolicitud(item.id)"
-                                        id="botonCancelarSolicitud" [hidden]="item.esMaster"
-                                        class="btn btn-outline-primary btn-sm mt-3" type="button">
+                                    <button *ngIf="existeSolicitud(item.id) && !item.esJugador"
+                                        (click)="cancelarSolicitud(item.id)" id="botonCancelarSolicitud"
+                                        [hidden]="item.esMaster" class="btn btn-outline-primary btn-sm mt-3"
+                                        type="button">
                                         Cancelar solicitud
+                                    </button>
+                                    <button *ngIf="existeSolicitud(item.id) && item.esJugador"
+                                        (click)="cancelarSolicitud(item.id)" id="botonCancelarSolicitud"
+                                        [hidden]="item.esMaster" class="btn btn-outline-primary btn-sm mt-3"
+                                        type="button">
+                                        Tu solicitud ya ha sido aceptada
                                     </button>
                                     <button *ngIf="!existeSolicitud(item.id) && !item.esJugador" id="solicitar"
                                         (click)="enviarSolicitud(item.id)" [hidden]="item.esMaster"
@@ -68,7 +75,7 @@
                                         Abandonar campaña
                                     </button>
                                     <button *ngIf="item.esMaster" id="botonMaster" class="btn btn-primary btn-sm mt-3"
-                                        type="button" [routerLink]="['/editar_campanya', item.id]" >
+                                        type="button" [routerLink]="['/editar_campanya', item.id]">
                                         Editar campanya
                                     </button>
                                 </div>

@@ -11,7 +11,6 @@ class Perfil(models.Model):
     proximos_juegos = models.PositiveIntegerField(default=0)
     juegos_terminados = models.PositiveIntegerField(default=0)
 
-
 class Provincia(models.Model):
     nombre = models.CharField(max_length=50)
 

@@ -80,7 +80,7 @@ export class PartidasComponent {
   }
 
   existeSolicitud(id: number): boolean {
-    if (this.solicitudesPartidasEnviadas.find(partida => partida.partida.id === id)) {
+    if (this.solicitudesPartidasEnviadas.find(partida => partida.partida.id === id )) {
       return true
     }
     return false
