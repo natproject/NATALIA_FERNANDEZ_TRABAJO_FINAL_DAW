@@ -329,7 +329,6 @@ class SolicitudCampanyaDetailView(APIView):
         solicitud.delete()  
         return Response({'message': 'Solicitud eliminada correctamente'}, status=status.HTTP_204_NO_CONTENT)    
  
-
 class MisSolicitudesCampanyasEnviadasView(APIView):
     authentication_classes = [ExpiringTokenAuthentication]
     permission_classes = [IsAuthenticated]
@@ -391,3 +390,42 @@ class ProvinciasView(APIView):
             serializer = ProvinciasSerializer(provincias, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)   
         return Response({'message': 'No hay provincias que mostrar'}, status=status.HTTP_204_NO_CONTENT)
+
+class EliminarUsuarioPartida(APIView):
+    authentication_classes = [ExpiringTokenAuthentication]
+    permission_classes = [IsAuthenticated]
+    
+    def delete(self, request, pk):
+        try:
+            partida = Partida.objects.get(pk=pk)
+        except Partida.DoesNotExist:
+            return Response({'error': 'Partida no encontrada'}, status=status.HTTP_404_NOT_FOUND)
+        jugador = int(request.data.get('jugador'))
+        if request.user.id != partida.master.id and request.user.id != jugador:
+            return Response({'error': 'No tienes permiso para realizar esta acción'}, status=status.HTTP_403_FORBIDDEN)
+        if partida.master.id == jugador:
+            return Response({'error': 'El master no puede abandonar la partida'}, status=status.HTTP_400_BAD_REQUEST)
+        partida.jugadores.remove(jugador)
+        partida.num_usuarios -= 1
+        partida.save()
+        return Response({'message': 'Jugador eliminado correctamente'}, status=status.HTTP_200_OK)    
+
+class EliminarUsuarioCampanya(APIView):
+    authentication_classes = [ExpiringTokenAuthentication]
+    permission_classes = [IsAuthenticated]
+    
+    def delete(self, request, pk):
+        try:
+            campanya = Campanya.objects.get(pk=pk)
+        except Campanya.DoesNotExist:
+            return Response({'error': 'Campanya no encontrada'}, status=status.HTTP_404_NOT_FOUND)
+        jugador = int(request.data.get('jugador'))
+        if request.user.id != campanya.master.id and request.user.id != jugador:
+            return Response({'error': 'No tienes permiso para realizar esta acción'}, status=status.HTTP_403_FORBIDDEN)
+        if campanya.master.id == jugador:
+            return Response({'error': 'El master no puede abandonar la campaña'}, status=status.HTTP_403_FORBIDDEN)
+        campanya.jugadores.remove(jugador)
+        campanya.num_usuarios -= 1
+        campanya.save()
+        return Response({'message': 'Jugador eliminado correctamente'}, status=status.HTTP_200_OK)    
+    
