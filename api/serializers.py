@@ -74,7 +74,7 @@ class CampanyaSerializer(serializers.ModelSerializer):
         return campanya
 
 class PartidaSerializer(serializers.ModelSerializer):
-    image = serializers.ImageField(max_length=None, use_url=True)
+    image = serializers.ImageField(max_length=None, use_url=True, required=False)
     hora_inicio = serializers.TimeField()
     hora_fin = serializers.TimeField()
     jugadores = InfoMasterSerializer(read_only=True, many=True)

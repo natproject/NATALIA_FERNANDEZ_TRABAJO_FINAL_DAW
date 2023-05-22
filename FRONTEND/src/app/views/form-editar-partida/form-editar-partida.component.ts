@@ -41,7 +41,7 @@ export class FormEditarPartidaComponent {
   };
 
   constructor(private router: Router, private DataService: DataService, private http: HttpClient, private route: ActivatedRoute) { }
-  
+
   ngOnInit(): void {
     if (!localStorage.getItem('token')) {
       this.router.navigate(['/login']);
@@ -51,11 +51,11 @@ export class FormEditarPartidaComponent {
       });
       this.DataService.getPartidaDetail(this.id).subscribe({
         next: response => {
-        this.partida = this.partida.concat(response);
-        let fecha = new Date(this.partida[0].fecha);
-        let formattedFecha = formatDate(fecha, 'dd-MM-yyyy', 'en-US');
-        this.partida[0].fecha = formattedFecha;
-        console.log(this.partida[0].jugadores[0].username)
+          this.partida = this.partida.concat(response);
+          let fecha = new Date(this.partida[0].fecha);
+          let formattedFecha = formatDate(fecha, 'dd-MM-yyyy', 'en-US');
+          this.partida[0].fecha = formattedFecha;
+          console.log(this.partida[0].jugadores[0].username)
         },
         error: error => {
           if (error.status === 401) {
@@ -90,48 +90,64 @@ export class FormEditarPartidaComponent {
   }
 
   enviarDatos(formulario: NgForm): void {
-    console.log(this.image)
     const horaInicio = formulario.value.hora_inicio;
     const horaFin = formulario.value.hora_fin;
-      const datosFormulario = new FormData();
+    const fechaFormateada = formulario.value['fecha'] !== null && formulario.value['fecha'] !== '' ? formatDate(formulario.value['fecha'], 'yyyy-MM-dd', 'en') : formatDate(this.partida[0].fecha, 'yyyy-MM-dd', 'en');
+    const datosFormulario = new FormData();
+    console.log(formulario.value['image'])
+    if (!this.image) {
       datosFormulario.append('master', this.perfilUsuario[0].id.toString());
-      datosFormulario.append('nombre_juego', formulario.value['nombre_juego']);
-      datosFormulario.append('modalidad', formulario.value['modalidad']);
-      datosFormulario.append('lugar', formulario.value['lugar']);
-      datosFormulario.append('provincia', formulario.value['provincia']);
-      datosFormulario.append('fecha', formatDate(formulario.value['fecha'], 'yyyy-MM-dd', 'en'));
-      datosFormulario.append('hora_inicio', horaInicio);
-      datosFormulario.append('hora_fin', horaFin);
-      datosFormulario.append('nivel_jugador', formulario.value['nivel_jugador']);
-      datosFormulario.append('max_usuarios', formulario.value['max_usuarios']);
-      datosFormulario.append('requisitos_jugador', formulario.value['requisitos_jugador']);
-      datosFormulario.append('observaciones', formulario.value['observaciones']);
-      datosFormulario.append('resumen', formulario.value['resumen']);
-      datosFormulario.append('image', this.image );
-
-      this.DataService.postCrearPartida(datosFormulario).subscribe({
-        next: response => {
-          this.router.navigate(['/detalle_partida/'+response.id]);
-
-        },
-        error: error => {
-          if (error.status === 401) {
-            this.router.navigate(['/error']);
-            localStorage.clear();
-          }
+      datosFormulario.append('nombre_juego', formulario.value['nombre_juego'] || this.partida[0].nombre_juego);
+      datosFormulario.append('modalidad', formulario.value['modalidad'] || this.partida[0].modalidad);
+      datosFormulario.append('lugar', formulario.value['lugar'] || this.partida[0].lugar);
+      datosFormulario.append('provincia', formulario.value['provincia'] || this.partida[0].provincia);
+      datosFormulario.append('fecha', fechaFormateada);
+      datosFormulario.append('hora_inicio', horaInicio || this.partida[0].hora_inicio);
+      datosFormulario.append('hora_fin', horaFin || this.partida[0].hora_fin);
+      datosFormulario.append('nivel_jugador', formulario.value['nivel_jugador'] || this.partida[0].nivel_jugador);
+      datosFormulario.append('max_usuarios', formulario.value['max_usuarios'] || this.partida[0].max_usuarios);
+      datosFormulario.append('requisitos_jugador', formulario.value['requisitos_jugador'] || this.partida[0].requisitos_jugador);
+      datosFormulario.append('observaciones', formulario.value['observaciones'] || this.partida[0].observaciones);
+      datosFormulario.append('resumen', formulario.value['resumen'] || this.partida[0].resumen);
+    } else {
+      datosFormulario.append('master', this.perfilUsuario[0].id.toString());
+      datosFormulario.append('nombre_juego', formulario.value['nombre_juego'] || this.partida[0].nombre_juego);
+      datosFormulario.append('modalidad', formulario.value['modalidad'] || this.partida[0].modalidad);
+      datosFormulario.append('lugar', formulario.value['lugar'] || this.partida[0].lugar);
+      datosFormulario.append('provincia', formulario.value['provincia'] || this.partida[0].provincia);
+      datosFormulario.append('fecha', fechaFormateada);
+      datosFormulario.append('hora_inicio', horaInicio || this.partida[0].hora_inicio);
+      datosFormulario.append('hora_fin', horaFin || this.partida[0].hora_fin);
+      datosFormulario.append('nivel_jugador', formulario.value['nivel_jugador'] || this.partida[0].nivel_jugador);
+      datosFormulario.append('max_usuarios', formulario.value['max_usuarios'] || this.partida[0].max_usuarios);
+      datosFormulario.append('requisitos_jugador', formulario.value['requisitos_jugador'] || this.partida[0].requisitos_jugador);
+      datosFormulario.append('observaciones', formulario.value['observaciones'] || this.partida[0].observaciones);
+      datosFormulario.append('resumen', formulario.value['resumen'] || this.partida[0].resumen);
+      datosFormulario.append('image', this.image);
+    }
+    this.DataService.putEditarPartida(this.partida[0].id, datosFormulario).subscribe({
+      next: response => {
+        this.router.navigate(['/detalle_partida/' + this.partida[0].id]);
+      },
+      error: error => {
+        console.log(error);
+        if (error.status === 401) {
+          this.router.navigate(['/error']);
+          localStorage.clear();
         }
-      });
+      }
+    });
   }
 
-  
+
   onModalidadSelected(): void {
     this.direccionHidden = true;
     this.provinciaHidden = true;
     this.plataformaHidden = true;
     const modalidadSeleccionada = this.datosFormulario.modalidad;
-    if(modalidadSeleccionada === "online"){
+    if (modalidadSeleccionada === "online") {
       this.plataformaHidden = false;
-    }else{
+    } else {
       this.direccionHidden = false;
       this.provinciaHidden = false;
     }

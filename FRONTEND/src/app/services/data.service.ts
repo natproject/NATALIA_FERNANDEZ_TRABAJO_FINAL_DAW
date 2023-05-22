@@ -46,7 +46,7 @@ export class DataService {
   public urlSolicitudesCampanyasRecibidas: string = "http://127.0.0.1:8000/api_solicitudes_campanyas_recibidas/";
   public urlAceptarSolicitudPartida: string = "http://127.0.0.1:8000/api_editar_solicitud_partida/";
   public urlAceptarSolicitudCampanya: string = "http://127.0.0.1:8000/api_editar_solicitud_campanya/";
-
+  public urlEditarPartida: string = "http://127.0.0.1:8000/api_partida/"
 
   public getResponseLogin(datosFormulario: any): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(this.urlLogin, datosFormulario);
@@ -274,5 +274,14 @@ export class DataService {
       })
     };
     return this.http.put<any>(`${this.urlAceptarSolicitudCampanya}${id}/`, body, httpOptions);
+  }
+
+    public putEditarPartida(id: number, body: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Token ${localStorage.getItem('token')}`
+      })
+    };
+    return this.http.put<any>(`${this.urlEditarPartida}${id}/`, body, httpOptions);
   }
 }

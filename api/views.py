@@ -116,6 +116,8 @@ class PartidaDetailView(APIView):
             return Response({'error': 'No eres el master de esta partida'}, status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
         serializer = PartidaSerializer(partida, data=request.data)
         if serializer.is_valid():
+            if 'image' not in request.data:
+                serializer.validated_data['image'] = partida.image  
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
