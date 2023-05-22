@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
-
 import { LoginResponse } from '../interfaces/response';
 import { PerfilUsuario } from '../interfaces/response';
 import { Partidas } from '../interfaces/response';
@@ -14,6 +13,7 @@ import { PartidaDetalle } from '../interfaces/response';
 import { UserPerfil } from '../interfaces/response';
 import { Provincias } from '../interfaces/response';
 import { PartidasRecibidas } from '../interfaces/response';
+import { CampanyasRecibidas } from '../interfaces/response';
 
 @Injectable({
   providedIn: 'root'
@@ -44,6 +44,8 @@ export class DataService {
   public urlEliminarPartida: string = "http://127.0.0.1:8000/api_partida/";
   public urlEliminarCampanya: string = "http://127.0.0.1:8000/api_campanya/";
   public urlSolicitudesCampanyasRecibidas: string = "http://127.0.0.1:8000/api_solicitudes_campanyas_recibidas/";
+  public urlAceptarSolicitudPartida: string = "http://127.0.0.1:8000/api_editar_solicitud_partida/";
+  public urlAceptarSolicitudCampanya: string = "http://127.0.0.1:8000/api_editar_solicitud_campanya/";
 
 
   public getResponseLogin(datosFormulario: any): Observable<LoginResponse> {
@@ -245,12 +247,32 @@ export class DataService {
     return this.http.get<PartidasRecibidas>(this.urlSolicitudesPartidasRecibidas, httpOptions);
   }
 
-  public getSolicitudesCampanyasRecibidas(): Observable<SolicitudesCampanyas> {
+  public getSolicitudesCampanyasRecibidas(): Observable<CampanyasRecibidas> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Authorization': `Token ${localStorage.getItem('token')}`
       })
     };
-    return this.http.get<SolicitudesCampanyas>(this.urlSolicitudesCampanyasRecibidas, httpOptions);
+    return this.http.get<CampanyasRecibidas>(this.urlSolicitudesCampanyasRecibidas, httpOptions);
+  }
+
+  public putAceptarSolicitudPartida(id: number, body: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Token ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json'
+      })
+    };
+    return this.http.put<any>(`${this.urlAceptarSolicitudPartida}${id}/`, body, httpOptions);
+  }
+
+  public putAceptarSolicitudCampanya(id: number, body: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Token ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json'
+      })
+    };
+    return this.http.put<any>(`${this.urlAceptarSolicitudCampanya}${id}/`, body, httpOptions);
   }
 }

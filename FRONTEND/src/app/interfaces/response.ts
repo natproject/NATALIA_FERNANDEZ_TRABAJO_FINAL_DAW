@@ -191,6 +191,14 @@ export interface PartidasRecibidas {
   partida:             Partida;
 }
 
+export interface CampanyasRecibidas {
+  id:                  number;
+  fecha_creacion:      Date;
+  aceptada:            boolean;
+  jugador_solicitante: JugadorSolicitante;
+  campanya:            Campanya;
+}
+
 export interface JugadorSolicitante {
   id:       number;
   username: string;

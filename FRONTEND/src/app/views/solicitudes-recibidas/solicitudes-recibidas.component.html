@@ -42,7 +42,7 @@
                                     Jugador Solicitante: <a [routerLink]="['/usuario', item.jugador_solicitante.id]" id="master" href="#">{{item.jugador_solicitante.username}}</a></h5>
                             </span>
                             <div class="d-flex justify-content-center">
-                                <button type="button" class="btn btn-primary mt-2 mx-2">Aceptar</button>
+                                <button (click)="aceptarSolicitud(item.id, item.jugador_solicitante.id, item.partida.id, item.fecha_creacion, item.aceptada)" type="button" class="btn btn-primary mt-2 mx-2">Aceptar</button>
                                 <button (click)="rechazarSolicitud(item.id)" id="rechazar" type="button " class="btn btn-primary mt-2 mx-2">Rechazar</button>
                             </div>
                         </div>
@@ -68,11 +68,11 @@
                             </div>
                             <span class="d-flex">
                                 <h5 class="text-start mt-2"><i class="fa-solid fa-dice-d20" style="color:#28b864"></i>
-                                    Master: <a [routerLink]="['/usuario', item.campanya.master.id]" id="master" href="#">{{item.campanya.master.username}}</a></h5>
+                                    Jugador Solicitante: <a [routerLink]="['/usuario', item.jugador_solicitante.id]" id="master" href="#">{{item.jugador_solicitante.username}}</a></h5>
                             </span>
                             <div class="d-flex justify-content-center">
-                                <button type="button" class="btn btn-primary mt-2">Aceptar</button>
-                                <button id="rechazar" type="button" class="btn btn-primary mt-2">Rechazar</button>
+                                <button (click)="aceptarSolicitudCampanya(item.id, item.jugador_solicitante.id, item.campanya.id, item.fecha_creacion, item.aceptada)" type="button" class="btn btn-primary mt-2 mx-2">Aceptar</button>
+                                <button (click)="rechazarSolicitudCampanya(item.id)" id="rechazar" type="button" class="btn btn-primary mt-2 mx-2">Rechazar</button>
                             </div>
                         </div>
                     </div>

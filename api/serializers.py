@@ -145,10 +145,10 @@ class SolicitudesPartidasRecibidasSerializer(serializers.ModelSerializer):
         fields = ('id', 'fecha_creacion', 'aceptada', 'jugador_solicitante', 'partida')
 
 class SolicitudesCampanyasRecibidasSerializer(serializers.ModelSerializer):
-    partida = PartidaSolicitadaSerializer(read_only=True)
+    campanya = CampanyaSolicitadaSerializer(read_only=True)
     jugador_solicitante = UserSerializer(read_only=True)
 
     class Meta:
-        model = SolicitudesPartidas
-        fields = ('id', 'fecha_creacion', 'aceptada', 'jugador_solicitante', 'partida')
+        model = SolicitudesCampanyas
+        fields = ('id', 'fecha_creacion', 'aceptada', 'jugador_solicitante', 'campanya')
       

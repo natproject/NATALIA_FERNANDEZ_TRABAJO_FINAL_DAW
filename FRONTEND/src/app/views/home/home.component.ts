@@ -4,7 +4,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
 import { HttpClient } from '@angular/common/http';
-import { SolicitudesCampanyas } from 'src/app/interfaces/response';
+import { CampanyasRecibidas, SolicitudesCampanyas } from 'src/app/interfaces/response';
 import { SolicitudesPartidas } from 'src/app/interfaces/response';
 import { PartidasRecibidas } from 'src/app/interfaces/response';
 
@@ -24,7 +24,7 @@ export class HomeComponent {
   public solicitudesPartidasEnviadasTotal: number = 0;
   public totalSolicitudesEnviadas: number = 0;
   public solicitudesPartidasRecibidas: PartidasRecibidas[] = [];
-  public solicitudesCampanyasRecibidas: SolicitudesCampanyas[] = [];
+  public solicitudesCampanyasRecibidas: CampanyasRecibidas[] = [];
   public solicitudesCampanyasRecibidasTotal: number = 0;
   public solicitudesPartidasRecibidasTotal: number = 0;
   public totalSolicitudesRecibidas: number = 0;

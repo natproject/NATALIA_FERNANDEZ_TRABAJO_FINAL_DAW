@@ -238,8 +238,6 @@ class SolicitudPartidaDetailView(APIView):
         
         if solicitud.jugador_solicitante.id != request.user.id:
             partida = Partida.objects.get(pk=solicitud.partida.id)
-            print(partida.master.id)
-            print(request.user.id)
             
             if str(partida.master.id) != str(request.user.id):
                 return Response({'error': 'No tienes permiso para realizar esta acción'}, status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
@@ -323,9 +321,12 @@ class SolicitudCampanyaDetailView(APIView):
         except SolicitudesCampanyas.DoesNotExist:
             return Response({'error': 'Solicitud no encontrada'}, status=status.HTTP_404_NOT_FOUND)
         if solicitud.jugador_solicitante.id != request.user.id:
-            return Response({'error': 'No eres el usuario de esta solicitud'}, status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
-        solicitud.delete()
+            campanya = Campanya.objects.get(pk=solicitud.campanya.id)
+            if str(campanya.master.id) != str(request.user.id):
+                return Response({'error': 'No tienes permiso para realizar esta acción'}, status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
+        solicitud.delete()  
         return Response({'message': 'Solicitud eliminada correctamente'}, status=status.HTTP_204_NO_CONTENT)    
+ 
 
 class MisSolicitudesCampanyasEnviadasView(APIView):
     authentication_classes = [ExpiringTokenAuthentication]
