@@ -156,4 +156,21 @@ export class FormEditarCampanyaComponent {
     });
   }
 
+  eliminarJugador(id: number) {
+    const campanya = this.campanya[0].id
+    this.DataService.delJugadorPartida(campanya, id).subscribe({
+      next: () => {
+        window.location.reload();
+        this.router.navigate(['/detalle_partida', campanya]);
+      },
+      error: error => {
+        console.error(error);
+        if (error.status === 401) {
+          this.router.navigate(['/error']);
+          localStorage.clear();
+        }
+      }
+    });
+  }
+
 }

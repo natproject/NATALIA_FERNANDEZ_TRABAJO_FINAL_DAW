@@ -57,7 +57,7 @@
                                 <div class="d-flex justify-content-center">
                                     <button *ngIf="item.esMaster" type="button" class="btn btn-primary mt-2"
                                         [routerLink]="['/editar_partida', item.id]">Editar partida</button>
-                                    <button [hidden]="item.esMaster" id="botonCancelarSolicitud" type="button"
+                                    <button (click)="abandonarPartida(item.id)" [hidden]="item.esMaster" id="botonCancelarSolicitud" type="button"
                                         class="btn btn-primary mt-2">Abandonar partida</button>
                                 </div>
                             </div>
@@ -101,7 +101,7 @@
                                 <div class="d-flex justify-content-center">
                                     <button *ngIf="item.esMaster" type="button" class="btn btn-primary mt-2"
                                         [routerLink]="['/editar_campanya', item.id]">Editar campaña</button>
-                                    <button [hidden]="item.esMaster" id="botonCancelarSolicitud" type="button"
+                                    <button (click)="abandonarCampanya(item.id)" [hidden]="item.esMaster" id="botonCancelarSolicitud" type="button"
                                         class="btn btn-primary mt-2">Abandonar campaña</button>
                                 </div>
                             </div>

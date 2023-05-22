@@ -47,6 +47,9 @@ export class DataService {
   public urlAceptarSolicitudPartida: string = "http://127.0.0.1:8000/api_editar_solicitud_partida/";
   public urlAceptarSolicitudCampanya: string = "http://127.0.0.1:8000/api_editar_solicitud_campanya/";
   public urlEditarPartida: string = "http://127.0.0.1:8000/api_partida/"
+  public urlAbandonarPartida: string = "http://127.0.0.1:8000/api_eliminar_usuario_partida/"
+  public urlAbandonarCampanya: string = "http://127.0.0.1:8000/api_eliminar_usuario_campanya/"
+
 
   public getResponseLogin(datosFormulario: any): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(this.urlLogin, datosFormulario);
@@ -110,7 +113,7 @@ export class DataService {
     return this.http.get<SolicitudesCampanyas>(this.urlSolicitudesCampanyasEnviadas, httpOptions);
   }
 
-  public getCampanyaDetail(id:number): Observable<CampanyaDetalle> {
+  public getCampanyaDetail(id: number): Observable<CampanyaDetalle> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Authorization': `Token ${localStorage.getItem('token')}`
@@ -119,7 +122,7 @@ export class DataService {
     return this.http.get<CampanyaDetalle>(`${this.urlCampanyaDetalle}${id}`, httpOptions);
   }
 
-  public getPartidaDetail(id:number): Observable<PartidaDetalle> {
+  public getPartidaDetail(id: number): Observable<PartidaDetalle> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Authorization': `Token ${localStorage.getItem('token')}`
@@ -128,7 +131,7 @@ export class DataService {
     return this.http.get<PartidaDetalle>(`${this.urlPartidaDetalle}${id}`, httpOptions);
   }
 
-  public getUserPerfil(id:number): Observable<UserPerfil> {
+  public getUserPerfil(id: number): Observable<UserPerfil> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Authorization': `Token ${localStorage.getItem('token')}`
@@ -276,12 +279,30 @@ export class DataService {
     return this.http.put<any>(`${this.urlAceptarSolicitudCampanya}${id}/`, body, httpOptions);
   }
 
-    public putEditarPartida(id: number, body: any): Observable<any> {
+  public putEditarPartida(id: number, body: any): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Authorization': `Token ${localStorage.getItem('token')}`
       })
     };
     return this.http.put<any>(`${this.urlEditarPartida}${id}/`, body, httpOptions);
+  }
+
+  public delJugadorPartida(id: number, user: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Token ${localStorage.getItem('token')}`,
+      }),
+    };
+    return this.http.delete<any>(`${this.urlAbandonarPartida}${id}/${user}/`, httpOptions);
+  }
+
+  public delJugadorCampanya(id: number, user: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Token ${localStorage.getItem('token')}`,
+      }),
+    };
+    return this.http.delete<any>(`${this.urlAbandonarCampanya}${id}/${user}/`, httpOptions);
   }
 }

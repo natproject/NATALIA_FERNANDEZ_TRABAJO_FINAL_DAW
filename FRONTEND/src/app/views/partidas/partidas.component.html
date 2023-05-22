@@ -70,7 +70,7 @@
                                         class="btn btn-outline-primary btn-sm mt-3" type="button">
                                         Enviar solicitud
                                     </button>
-                                    <button *ngIf="item.esJugador" id="botonCancelarSolicitud"
+                                    <button (click)="abandonarPartida(item.id)" *ngIf="item.esJugador" id="botonCancelarSolicitud"
                                         class="btn btn-outline-primary btn-sm mt-3" type="button">
                                         Abandonar partida
                                     </button>

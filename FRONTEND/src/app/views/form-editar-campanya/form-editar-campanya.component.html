@@ -160,7 +160,7 @@
                     <ul class="list-group list-group-flush text-center">
                         <li class="list-group-item"><b>Lista de jugadores: </b> <br>
                             <p id="nombreJugadores" *ngFor="let item of campanya[0].jugadores" class="mt-3">• <a
-                                    [routerLink]="['/usuario', item.id]">{{item.username}}</a> &nbsp;&nbsp;<i id="deleteJugador"
+                                    [routerLink]="['/usuario', item.id]">{{item.username}}</a> &nbsp;&nbsp;<i (click)="eliminarJugador(item.id)" id="deleteJugador"
                                     class="fa-solid fa-trash text-end"></i></p>
                         </li>
                     </ul>

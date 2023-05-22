@@ -169,4 +169,20 @@ export class FormEditarPartidaComponent {
     });
   }
 
+  eliminarJugador(id: number) {
+    const partida = this.partida[0].id
+    this.DataService.delJugadorPartida(partida, id).subscribe({
+      next: () => {
+        window.location.reload();
+        this.router.navigate(['/detalle_partida', partida]);
+      },
+      error: error => {
+        console.error(error);
+        if (error.status === 401) {
+          this.router.navigate(['/error']);
+          localStorage.clear();
+        }
+      }
+    });
+  }
 }

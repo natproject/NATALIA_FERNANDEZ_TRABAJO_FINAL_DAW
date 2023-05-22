@@ -102,4 +102,36 @@ export class CrearJuegosComponent {
   onNavPillsChange() {
     this.p = 1;
   }
+
+  abandonarPartida(id: number) {
+    const user = this.perfilUsuario[0].id;
+    this.DataService.delJugadorPartida(id, user).subscribe({
+      next: () => {
+        window.location.reload();
+      },
+      error: error => {
+        console.error(error);
+        if (error.status === 401) {
+          this.router.navigate(['/error']);
+          localStorage.clear();
+        }
+      }
+    });
+  }
+
+  abandonarCampanya(id: number) {
+    const user = this.perfilUsuario[0].id;
+    this.DataService.delJugadorCampanya(id, user).subscribe({
+      next: () => {
+        window.location.reload();
+      },
+      error: error => {
+        console.error(error);
+        if (error.status === 401) {
+          this.router.navigate(['/error']);
+          localStorage.clear();
+        }
+      }
+    });
+  }
 }

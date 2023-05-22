@@ -395,12 +395,11 @@ class EliminarUsuarioPartida(APIView):
     authentication_classes = [ExpiringTokenAuthentication]
     permission_classes = [IsAuthenticated]
     
-    def delete(self, request, pk):
+    def delete(self, request, pk, jugador):
         try:
             partida = Partida.objects.get(pk=pk)
         except Partida.DoesNotExist:
             return Response({'error': 'Partida no encontrada'}, status=status.HTTP_404_NOT_FOUND)
-        jugador = int(request.data.get('jugador'))
         if request.user.id != partida.master.id and request.user.id != jugador:
             return Response({'error': 'No tienes permiso para realizar esta acción'}, status=status.HTTP_403_FORBIDDEN)
         if partida.master.id == jugador:
@@ -414,12 +413,11 @@ class EliminarUsuarioCampanya(APIView):
     authentication_classes = [ExpiringTokenAuthentication]
     permission_classes = [IsAuthenticated]
     
-    def delete(self, request, pk):
+    def delete(self, request, pk, jugador):
         try:
             campanya = Campanya.objects.get(pk=pk)
         except Campanya.DoesNotExist:
             return Response({'error': 'Campanya no encontrada'}, status=status.HTTP_404_NOT_FOUND)
-        jugador = int(request.data.get('jugador'))
         if request.user.id != campanya.master.id and request.user.id != jugador:
             return Response({'error': 'No tienes permiso para realizar esta acción'}, status=status.HTTP_403_FORBIDDEN)
         if campanya.master.id == jugador:

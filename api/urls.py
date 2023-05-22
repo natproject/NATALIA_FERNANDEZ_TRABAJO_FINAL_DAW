@@ -27,7 +27,7 @@ urlpatterns = [
     path('api_solicitudes_campanyas_enviadas/', views.MisSolicitudesCampanyasEnviadasView.as_view()),
     path('api_solicitudes_campanyas_recibidas/', views.MisSolicitudesCampanyasRecibidasView.as_view()),
 
-    path('api_eliminar_usuario_partida/<int:pk>/', views.EliminarUsuarioPartida.as_view()),
-    path('api_eliminar_usuario_campanya/<int:pk>/', views.EliminarUsuarioCampanya.as_view()),
+    path('api_eliminar_usuario_partida/<int:pk>/<int:jugador>/', views.EliminarUsuarioPartida.as_view()),
+    path('api_eliminar_usuario_campanya/<int:pk>/<int:jugador>/', views.EliminarUsuarioCampanya.as_view()),
 
 ]

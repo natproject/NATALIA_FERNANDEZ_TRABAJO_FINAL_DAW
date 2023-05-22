@@ -16,6 +16,7 @@ export class PartidasComponent {
   public perfilUsuario: PerfilUsuario[] = [];
   public solicitudesPartidasEnviadas: SolicitudesPartidas[] = [];
 
+
   constructor(private router: Router, private DataService: DataService, private http: HttpClient) { }
 
 
@@ -80,7 +81,7 @@ export class PartidasComponent {
   }
 
   existeSolicitud(id: number): boolean {
-    if (this.solicitudesPartidasEnviadas.find(partida => partida.partida.id === id )) {
+    if (this.solicitudesPartidasEnviadas.find(partida => partida.partida.id === id)) {
       return true
     }
     return false
@@ -98,7 +99,10 @@ export class PartidasComponent {
           window.location.reload();
         },
         error: error => {
-          console.error(error);
+          if (error.status === 401) {
+            this.router.navigate(['/error']);
+            localStorage.clear();
+          }
         }
       });
     }
@@ -118,7 +122,26 @@ export class PartidasComponent {
         window.location.reload();
       },
       error: error => {
+        if (error.status === 401) {
+          this.router.navigate(['/error']);
+          localStorage.clear();
+        }
+      }
+    });
+  }
+
+  abandonarPartida(id: number) {
+    const user = this.perfilUsuario[0].id;
+    this.DataService.delJugadorPartida(id, user).subscribe({
+      next: () => {
+        window.location.reload();
+      },
+      error: error => {
         console.error(error);
+        if (error.status === 401) {
+          this.router.navigate(['/error']);
+          localStorage.clear();
+        }
       }
     });
   }
