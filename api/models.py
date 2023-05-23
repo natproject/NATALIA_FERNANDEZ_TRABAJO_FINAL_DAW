@@ -105,8 +105,7 @@ class CampanyaJugador(models.Model):
     clase_personaje = models.CharField(max_length=100, blank=True)
     raza_personaje = models.CharField(max_length=100, blank=True)
     observaciones = models.CharField(max_length=2000, blank=True)
-    
-    
+       
 class SolicitudesPartidas(models.Model):
     jugador_solicitante = models.ForeignKey(User, on_delete=models.CASCADE)
     partida = models.ForeignKey(Partida, on_delete=models.CASCADE)
