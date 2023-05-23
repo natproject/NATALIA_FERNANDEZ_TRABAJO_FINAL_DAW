@@ -8,6 +8,7 @@ import { formatDate } from '@angular/common';
 import { NgForm } from '@angular/forms';
 
 
+
 @Component({
   selector: 'app-form-editar-partida',
   templateUrl: './form-editar-partida.component.html',
@@ -92,9 +93,9 @@ export class FormEditarPartidaComponent {
   enviarDatos(formulario: NgForm): void {
     const horaInicio = formulario.value.hora_inicio;
     const horaFin = formulario.value.hora_fin;
-    const fechaFormateada = formulario.value['fecha'] !== null && formulario.value['fecha'] !== '' ? formatDate(formulario.value['fecha'], 'yyyy-MM-dd', 'en') : formatDate(this.partida[0].fecha, 'yyyy-MM-dd', 'en');
+    const fechaFormateada = formulario.value.fecha !== null && formulario.value.fecha !== '' ? formatDate(formulario.value.fecha, 'yyyy-MM-dd', 'en') : formatDate(this.partida[0].fecha, 'yyyy-MM-dd', 'en');
     const datosFormulario = new FormData();
-    console.log(formulario.value['image'])
+
     if (!this.image) {
       datosFormulario.append('master', this.perfilUsuario[0].id.toString());
       datosFormulario.append('nombre_juego', formulario.value['nombre_juego'] || this.partida[0].nombre_juego);

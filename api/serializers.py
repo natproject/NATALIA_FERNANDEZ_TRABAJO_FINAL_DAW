@@ -54,12 +54,13 @@ class CampanyaJugadorSerializer(serializers.ModelSerializer):
         fields = ('id', 'campanya', 'jugador')
      
 class CampanyaSerializer(serializers.ModelSerializer):
-    image = serializers.ImageField(max_length=None, use_url=True)
+    image = serializers.ImageField(max_length=None, use_url=True, required=False)
     hora_inicio = serializers.TimeField()
     hora_fin = serializers.TimeField()
     jugadores = InfoMasterSerializer(read_only=True, many=True)
     provincia = ProvinciaSerializer(read_only=True)
     master = InfoMasterSerializer(read_only=True)
+    fecha = serializers.DateField(required=False)
     
     class Meta:
         model = Campanya
@@ -80,6 +81,7 @@ class PartidaSerializer(serializers.ModelSerializer):
     jugadores = InfoMasterSerializer(read_only=True, many=True)
     provincia = ProvinciaSerializer(read_only=True)
     master = InfoMasterSerializer(read_only=True)
+    fecha = serializers.DateField(required=False)
     class Meta:
         model = Partida
         fields = '__all__'

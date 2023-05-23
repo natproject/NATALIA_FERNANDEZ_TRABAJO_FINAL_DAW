@@ -47,6 +47,7 @@ export class DataService {
   public urlAceptarSolicitudPartida: string = "http://127.0.0.1:8000/api_editar_solicitud_partida/";
   public urlAceptarSolicitudCampanya: string = "http://127.0.0.1:8000/api_editar_solicitud_campanya/";
   public urlEditarPartida: string = "http://127.0.0.1:8000/api_partida/"
+  public urlEditarCampanya: string = "http://127.0.0.1:8000/api_campanya/"
   public urlAbandonarPartida: string = "http://127.0.0.1:8000/api_eliminar_usuario_partida/"
   public urlAbandonarCampanya: string = "http://127.0.0.1:8000/api_eliminar_usuario_campanya/"
 
@@ -286,6 +287,15 @@ export class DataService {
       })
     };
     return this.http.put<any>(`${this.urlEditarPartida}${id}/`, body, httpOptions);
+  }
+
+  public putEditarCampanya(id: number, body: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Token ${localStorage.getItem('token')}`
+      })
+    };
+    return this.http.put<any>(`${this.urlEditarCampanya}${id}/`, body, httpOptions);
   }
 
   public delJugadorPartida(id: number, user: any): Observable<any> {
