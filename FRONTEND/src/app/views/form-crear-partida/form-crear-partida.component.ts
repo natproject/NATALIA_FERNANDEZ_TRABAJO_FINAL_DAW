@@ -81,7 +81,7 @@ export class FormCrearPartidaComponent {
       datosFormulario.append('modalidad', formulario.value['modalidad']);
       datosFormulario.append('lugar', formulario.value['lugar']);
       datosFormulario.append('provincia', formulario.value['provincia']);
-      datosFormulario.append('fecha', formatDate(formulario.value['fecha'], 'yyyy-MM-dd', 'en'));
+      datosFormulario.append('fecha', formatDate(formulario.value['fecha'], 'dd-MM-yyyy', 'en'));
       datosFormulario.append('hora_inicio', horaInicio);
       datosFormulario.append('hora_fin', horaFin);
       datosFormulario.append('nivel_jugador', formulario.value['nivel_jugador']);
